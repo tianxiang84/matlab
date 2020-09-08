@@ -1,0 +1,35 @@
+%implements s1_b0_5n17m_SystemInitialize "C"
+
+%function SystemInitialize(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+uint32_T r;
+int32_T mti;
+%closefile localVarDecl
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+/* SystemInitialize for MATLAB Function: '<Root>/MATLAB Function' */
+memset(&parallelizationTest_DW.state[0], 0, 625U * sizeof(uint32_T));
+r = 5489U;
+parallelizationTest_DW.state[0] = 5489U;
+for (mti = 0; mti < 623; mti++) {
+    r = ((r >> 30U ^ r) * 1812433253U + mti) + 1U;
+    parallelizationTest_DW.state[mti + 1] = r;
+}
+parallelizationTest_DW.state[624] = 624U;
+/* End of SystemInitialize for MATLAB Function: '<Root>/MATLAB Function' */
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedSystemInitializeLocalVars", localVarDecl)>
+%endfunction
+%function SystemInitializeFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void SystemInitialize(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 23, fcnProtoType)>
+%endfunction

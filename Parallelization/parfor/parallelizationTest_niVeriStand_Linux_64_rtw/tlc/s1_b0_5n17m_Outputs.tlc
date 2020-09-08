@@ -1,0 +1,60 @@
+%implements s1_b0_5n17m_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+uint32_T r;
+int32_T mti;
+emxArray_real_T_parallelizati_T *c;
+emxArray_creal_T_parallelizat_T *c_0;
+%closefile localVarDecl
+/* MATLAB Function: '<Root>/MATLAB Function' */
+/* MATLAB Function 'MATLAB Function': '<S1>:1' */
+/*  time_par_tests: Perform a parallization test (baseline) */
+/* status = time_par_tests_mfile(matrix_size, repeat_times); */
+/* [-] how many times we repeat the operation */
+/* [-] matrix size */
+/*  Specify the seed for MATLAB random number generator */
+/* '<S1>:1:10' */
+r = 42U;
+parallelizationTest_DW.state[0] = 42U;
+for (mti = 0; mti < 623; mti++) {
+    r = ((r >> 30U ^ r) * 1812433253U + mti) + 1U;
+    parallelizationTest_DW.state[mti + 1] = r;
+}
+parallelizationTest_DW.state[624] = 624U;
+/* '<S1>:1:12' */
+/* '<S1>:1:13' */
+mti = 0;
+%<(SLibCGCallSubFcn("parallelizationT_emxInit_real_T", ["&c", "2"], 0, 24, 2))>;
+%<(SLibCGCallSubFcn("parallelization_emxInit_creal_T", ["&c_0", "1"], 0, 24, 3))>;
+/* MATLAB Function: '<Root>/MATLAB Function' incorporates:
+ *  Constant: '<Root>/matrix_size'
+ *  Constant: '<Root>/repeat_times'
+ */
+while (mti <= (int32_T)parallelizationTest_P.repeat_times_Value - 1) {
+    /* '<S1>:1:13' */
+    /* [-] soring the results */
+    /* '<S1>:1:14' */
+    %<(SLibCGCallSubFcn("parallelizationTest_rand", ["parallelizationTest_P.matrix_size_Value", "c"], 0, 24, 0))>;
+    %<(SLibCGCallSubFcn("parallelizationTest_eig", ["c", "c_0"], 0, 24, 1))>;
+    mti++;
+}
+%<(SLibCGCallSubFcn("parallelization_emxFree_creal_T", ["&c_0"], 0, 24, 5))>;
+%<(SLibCGCallSubFcn("parallelizationT_emxFree_real_T", ["&c"], 0, 24, 4))>;
+/* '<S1>:1:17' */
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 24, fcnProtoType)>
+%endfunction

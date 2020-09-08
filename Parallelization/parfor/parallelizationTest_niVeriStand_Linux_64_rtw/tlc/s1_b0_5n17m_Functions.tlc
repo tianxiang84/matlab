@@ -1,0 +1,2972 @@
+%implements s1_b0_5n17m_Functions "C"
+
+%function parallelizationT_emxInit_real_T_Fcn0(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+emxArray_real_T_parallelizati_T *emxArray;
+int32_T i;
+*pEmxArray = (emxArray_real_T_parallelizati_T *)malloc(sizeof(emxArray_real_T_parallelizati_T));
+emxArray = *pEmxArray;
+emxArray->data = (real_T *)NULL;
+emxArray->numDimensions = numDimensions;
+emxArray->size = (int32_T *)malloc((uint32_T)(sizeof(int32_T) * numDimensions));
+emxArray->allocatedSize = 0;
+emxArray->canFreeData = true;
+for (i = 0; i < numDimensions; i++) {
+    emxArray->size[i] = 0;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationT_emxInit_real_T(\
+%assign comma = ""
+%<comma>emxArray_real_T_parallelizati_T **pEmxArray\
+%assign comma = ", "
+%<comma>int32_T numDimensions\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelization_emxInit_creal_T_Fcn1(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+emxArray_creal_T_parallelizat_T *emxArray;
+int32_T i;
+*pEmxArray = (emxArray_creal_T_parallelizat_T *)malloc(sizeof(emxArray_creal_T_parallelizat_T));
+emxArray = *pEmxArray;
+emxArray->data = (creal_T *)NULL;
+emxArray->numDimensions = numDimensions;
+emxArray->size = (int32_T *)malloc((uint32_T)(sizeof(int32_T) * numDimensions));
+emxArray->allocatedSize = 0;
+emxArray->canFreeData = true;
+for (i = 0; i < numDimensions; i++) {
+    emxArray->size[i] = 0;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelization_emxInit_creal_T(\
+%assign comma = ""
+%<comma>emxArray_creal_T_parallelizat_T **pEmxArray\
+%assign comma = ", "
+%<comma>int32_T numDimensions\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelization_emxFree_creal_T_Fcn2(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+if (*pEmxArray != (emxArray_creal_T_parallelizat_T *)NULL) {
+    if (((*pEmxArray)->data != (creal_T *)NULL) && (*pEmxArray)->canFreeData) {
+        free((void *)(*pEmxArray)->data);
+    }
+    free((void *)(*pEmxArray)->size);
+    free((void *)*pEmxArray);
+    *pEmxArray = (emxArray_creal_T_parallelizat_T *)NULL;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelization_emxFree_creal_T(\
+%assign comma = ""
+%<comma>emxArray_creal_T_parallelizat_T **pEmxArray\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationT_emxFree_real_T_Fcn3(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+if (*pEmxArray != (emxArray_real_T_parallelizati_T *)NULL) {
+    if (((*pEmxArray)->data != (real_T *)NULL) && (*pEmxArray)->canFreeData) {
+        free((void *)(*pEmxArray)->data);
+    }
+    free((void *)(*pEmxArray)->size);
+    free((void *)*pEmxArray);
+    *pEmxArray = (emxArray_real_T_parallelizati_T *)NULL;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationT_emxFree_real_T(\
+%assign comma = ""
+%<comma>emxArray_real_T_parallelizati_T **pEmxArray\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 3, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizati_emxEnsureCapacity_Fcn4(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T newNumel;
+int32_T i;
+void *newData;
+if (oldNumel < 0) {
+    oldNumel = 0;
+}
+newNumel = 1;
+for (i = 0; i < emxArray->numDimensions; i++) {
+    newNumel *= emxArray->size[i];
+}
+if (newNumel > emxArray->allocatedSize) {
+    i = emxArray->allocatedSize;
+    if (i < 16) {
+        i = 16;
+    }
+    while (i < newNumel) {
+        if (i > 1073741823) {
+            i = MAX_int32_T;
+        } else {
+            i <<= 1;
+        }
+    }
+    newData = calloc((uint32_T)i, elementSize);
+    if (emxArray->data != NULL) {
+        memcpy(newData, emxArray->data, elementSize * oldNumel);
+        if (emxArray->canFreeData) {
+            free(emxArray->data);
+        }
+    }
+    emxArray->data = newData;
+    emxArray->allocatedSize = i;
+    emxArray->canFreeData = true;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizati_emxEnsureCapacity(\
+%assign comma = ""
+%<comma>emxArray__common_parallelizat_T *emxArray\
+%assign comma = ", "
+%<comma>int32_T oldNumel\
+%assign comma = ", "
+%<comma>uint32_T elementSize\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 4, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizat_eml_rand_mt19937ar_Fcn5(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T r;
+uint32_T u[2];
+uint32_T y;
+int32_T kk;
+int32_T k;
+boolean_T b_isvalid;
+uint32_T c_r;
+int32_T exitg1;
+boolean_T exitg2;
+/* <LEGAL>========================= COPYRIGHT NOTICE ============================ */
+/* <LEGAL> This is a uniform (0,1) pseudorandom number generator based on:        */
+/* <LEGAL>                                                                        */
+/* <LEGAL> A C-program for MT19937, with initialization improved 2002/1/26.       */
+/* <LEGAL> Coded by Takuji Nishimura and Makoto Matsumoto.                        */
+/* <LEGAL>                                                                        */
+/* <LEGAL> Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,      */
+/* <LEGAL> All rights reserved.                                                   */
+/* <LEGAL>                                                                        */
+/* <LEGAL> Redistribution and use in source and binary forms, with or without     */
+/* <LEGAL> modification, are permitted provided that the following conditions     */
+/* <LEGAL> are met:                                                               */
+/* <LEGAL>                                                                        */
+/* <LEGAL>   1. Redistributions of source code must retain the above copyright    */
+/* <LEGAL>      notice, this list of conditions and the following disclaimer.     */
+/* <LEGAL>                                                                        */
+/* <LEGAL>   2. Redistributions in binary form must reproduce the above copyright */
+/* <LEGAL>      notice, this list of conditions and the following disclaimer      */
+/* <LEGAL>      in the documentation and/or other materials provided with the     */
+/* <LEGAL>      distribution.                                                     */
+/* <LEGAL>                                                                        */
+/* <LEGAL>   3. The names of its contributors may not be used to endorse or       */
+/* <LEGAL>      promote products derived from this software without specific      */
+/* <LEGAL>      prior written permission.                                         */
+/* <LEGAL>                                                                        */
+/* <LEGAL> THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS    */
+/* <LEGAL> "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT      */
+/* <LEGAL> LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR  */
+/* <LEGAL> A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT  */
+/* <LEGAL> OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,  */
+/* <LEGAL> SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT       */
+/* <LEGAL> LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,  */
+/* <LEGAL> DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY  */
+/* <LEGAL> THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT    */
+/* <LEGAL> (INCLUDING  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE */
+/* <LEGAL> OF THIS  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  */
+/* <LEGAL>                                                                        */
+/* <LEGAL>=============================   END   ================================= */
+do {
+    exitg1 = 0;
+    for (k = 0; k < 2; k++) {
+        c_r = state[624] + 1U;
+        if (c_r >= 625U) {
+            for (kk = 0; kk < 227; kk++) {
+                y = (state[kk + 1] & 2147483647U) | (state[kk] & 2147483648U);
+                if ((int32_T)(y & 1U) == 0) {
+                    y >>= 1U;
+                } else {
+                    y = y >> 1U ^ 2567483615U;
+                }
+                state[kk] = state[kk + 397] ^ y;
+            }
+            for (kk = 0; kk < 396; kk++) {
+                y = (state[kk + 227] & 2147483648U) | (state[kk + 228] & 2147483647U);
+                if ((int32_T)(y & 1U) == 0) {
+                    y >>= 1U;
+                } else {
+                    y = y >> 1U ^ 2567483615U;
+                }
+                state[kk + 227] = state[kk] ^ y;
+            }
+            y = (state[623] & 2147483648U) | (state[0] & 2147483647U);
+            if ((int32_T)(y & 1U) == 0) {
+                y >>= 1U;
+            } else {
+                y = y >> 1U ^ 2567483615U;
+            }
+            state[623] = state[396] ^ y;
+            c_r = 1U;
+        }
+        y = state[(int32_T)c_r - 1];
+        state[624] = c_r;
+        y ^= y >> 11U;
+        y ^= y << 7U & 2636928640U;
+        y ^= y << 15U & 4022730752U;
+        y ^= y >> 18U;
+        u[k] = y;
+    }
+    r = ((real_T)(u[0] >> 5U) * 6.7108864E+7 + (real_T)(u[1] >> 6U)) * 1.1102230246251565E-16;
+    if (r == 0.0) {
+        if ((state[624] >= 1U) && (state[624] < 625U)) {
+            b_isvalid = true;
+        } else {
+            b_isvalid = false;
+        }
+        if (b_isvalid) {
+            b_isvalid = false;
+            k = 1;
+            exitg2 = false;
+            while ((!exitg2) && (k < 625)) {
+                if (state[k - 1] == 0U) {
+                    k++;
+                } else {
+                    b_isvalid = true;
+                    exitg2 = true;
+                }
+            }
+        }
+        if (!b_isvalid) {
+            c_r = 5489U;
+            state[0] = 5489U;
+            for (k = 0; k < 623; k++) {
+                c_r = ((c_r >> 30U ^ c_r) * 1812433253U + k) + 1U;
+                state[k + 1] = c_r;
+            }
+            state[624] = 624U;
+        }
+    } else {
+        exitg1 = 1;
+    }
+} while (exitg1 == 0);
+return r;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static real_T parallelizat_eml_rand_mt19937ar(\
+%assign comma = ""
+%<comma>uint32_T state[625]\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 5, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_rand_Fcn6(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T b;
+int32_T c;
+int32_T k;
+%assign _modelSS = ""
+
+c = r->size[0] * r->size[1];
+r->size[0] = (int32_T)varargin_1;
+r->size[1] = (int32_T)varargin_1;
+%if SLibCG_FcnCallArgAccessed(0,6,1,0)
+%<SLibCG_AccessArg(0 ,6, 1)>
+%endif
+
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)r", "c", "sizeof(real_T)"], 0, 6, 1))>;
+c = r->size[0] * r->size[1];
+for (k = 0; k < c; k++) {
+    b = %<(SLibCGCallSubFcn("parallelizat_eml_rand_mt19937ar", ["parallelizationTest_DW.state"], 0, 6, 0))>;
+    r->data[k] = b;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_rand(\
+%assign comma = ""
+%<comma>real_T varargin_1\
+%assign comma = ", "
+%<comma>emxArray_real_T_parallelizati_T *r\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 6, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizatio_emxInit_creal_T1_Fcn7(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+emxArray_creal_T_parallelizat_T *emxArray;
+int32_T i;
+*pEmxArray = (emxArray_creal_T_parallelizat_T *)malloc(sizeof(emxArray_creal_T_parallelizat_T));
+emxArray = *pEmxArray;
+emxArray->data = (creal_T *)NULL;
+emxArray->numDimensions = numDimensions;
+emxArray->size = (int32_T *)malloc((uint32_T)(sizeof(int32_T) * numDimensions));
+emxArray->allocatedSize = 0;
+emxArray->canFreeData = true;
+for (i = 0; i < numDimensions; i++) {
+    emxArray->size[i] = 0;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizatio_emxInit_creal_T1(\
+%assign comma = ""
+%<comma>emxArray_creal_T_parallelizat_T **pEmxArray\
+%assign comma = ", "
+%<comma>int32_T numDimensions\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 7, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function rt_hypotd_snf_Fcn8(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T y;
+real_T a;
+a = fabs(u0);
+y = fabs(u1);
+if (a < y) {
+    a /= y;
+    y *= sqrt(a * a + 1.0);
+} else if (a > y) {
+    y /= a;
+    y = sqrt(y * y + 1.0) * a;
+} else {
+    if (!rtIsNaN(y)) {
+        y = a * 1.4142135623730951;
+    }
+}
+return y;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern real_T rt_hypotd_snf(\
+%assign comma = ""
+%<comma>real_T u0\
+%assign comma = ", "
+%<comma>real_T u1\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 8, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_sqrt_Fcn9(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T xr;
+real_T xi;
+real_T absxr;
+real_T absxi;
+xr = x->re;
+xi = x->im;
+if (xi == 0.0) {
+    if (xr < 0.0) {
+        absxr = 0.0;
+        xr = sqrt(-xr);
+    } else {
+        absxr = sqrt(xr);
+        xr = 0.0;
+    }
+} else if (xr == 0.0) {
+    if (xi < 0.0) {
+        absxr = sqrt(-xi / 2.0);
+        xr = -absxr;
+    } else {
+        absxr = sqrt(xi / 2.0);
+        xr = absxr;
+    }
+} else if (rtIsNaN(xr)) {
+    absxr = xr;
+} else if (rtIsNaN(xi)) {
+    absxr = xi;
+    xr = xi;
+} else if (rtIsInf(xi)) {
+    absxr = fabs(xi);
+    xr = xi;
+} else if (rtIsInf(xr)) {
+    if (xr < 0.0) {
+        absxr = 0.0;
+        xr = xi * -xr;
+    } else {
+        absxr = xr;
+        xr = 0.0;
+    }
+} else {
+    absxr = fabs(xr);
+    absxi = fabs(xi);
+    if ((absxr > 4.4942328371557893E+307) || (absxi > 4.4942328371557893E+307)) {
+        absxr *= 0.5;
+        absxi *= 0.5;
+        absxi = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["absxr", "absxi"], 0, 9, 1))>;
+        if (absxi > absxr) {
+            absxr = sqrt(absxr / absxi + 1.0) * sqrt(absxi);
+        } else {
+            absxr = sqrt(absxi) * 1.4142135623730951;
+        }
+    } else {
+        absxr = sqrt((%<(SLibCGCallSubFcn("rt_hypotd_snf", ["absxr", "absxi"], 0, 9, 0))> + absxr) * 0.5);
+    }
+    if (xr > 0.0) {
+        xr = xi / absxr * 0.5;
+    } else {
+        if (xi < 0.0) {
+            xr = -absxr;
+        } else {
+            xr = absxr;
+        }
+        absxr = xi / xr * 0.5;
+    }
+}
+x->re = absxr;
+x->im = xr;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_sqrt(\
+%assign comma = ""
+%<comma>creal_T *x\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 9, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xzlartg_c_Fcn10(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T scale;
+real_T g2;
+real_T f2s;
+real_T fs_re;
+real_T fs_im;
+real_T gs_re;
+real_T gs_im;
+boolean_T guard1 = false;
+%assign _modelSS = ""
+
+scale = fabs(f.re);
+g2 = fabs(f.im);
+if (g2 > scale) {
+    scale = g2;
+}
+g2 = fabs(g.re);
+f2s = fabs(g.im);
+if (f2s > g2) {
+    g2 = f2s;
+}
+if (g2 > scale) {
+    scale = g2;
+}
+fs_re = f.re;
+fs_im = f.im;
+gs_re = g.re;
+gs_im = g.im;
+guard1 = false;
+if (scale >= 7.4428285367870146E+137) {
+    do {
+        fs_re *= 1.3435752215134178E-138;
+        fs_im *= 1.3435752215134178E-138;
+        gs_re *= 1.3435752215134178E-138;
+        gs_im *= 1.3435752215134178E-138;
+        scale *= 1.3435752215134178E-138;
+    } while (!(scale < 7.4428285367870146E+137));
+    guard1 = true;
+} else if (scale <= 1.3435752215134178E-138) {
+    if ((g.re == 0.0) && (g.im == 0.0)) {
+        *cs = 1.0;
+        sn->re = 0.0;
+        sn->im = 0.0;
+    } else {
+        do {
+            fs_re *= 7.4428285367870146E+137;
+            fs_im *= 7.4428285367870146E+137;
+            gs_re *= 7.4428285367870146E+137;
+            gs_im *= 7.4428285367870146E+137;
+            scale *= 7.4428285367870146E+137;
+        } while (!(scale > 1.3435752215134178E-138));
+        guard1 = true;
+    }
+} else {
+    guard1 = true;
+}
+if (guard1) {
+    scale = fs_re * fs_re + fs_im * fs_im;
+    g2 = gs_re * gs_re + gs_im * gs_im;
+    f2s = g2;
+    if (1.0 > g2) {
+        f2s = 1.0;
+    }
+    if (scale <= f2s * 2.0041683600089728E-292) {
+        if ((f.re == 0.0) && (f.im == 0.0)) {
+            *cs = 0.0;
+            g2 = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["gs_re", "gs_im"], 0, 10, 3))>;
+            sn->re = gs_re / g2;
+            sn->im = -gs_im / g2;
+        } else {
+            scale = sqrt(g2);
+            *cs = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["fs_re", "fs_im"], 0, 10, 0))> / scale;
+            g2 = fabs(f.re);
+            f2s = fabs(f.im);
+            if (f2s > g2) {
+                g2 = f2s;
+            }
+            if (g2 > 1.0) {
+%if SLibCG_FcnCallArgAccessed(0,10,2,0)
+%<SLibCG_AccessArg(0 ,10, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,10,2,1)
+%<SLibCG_AccessArg(0 ,10, 0)>
+%endif
+
+                g2 = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["f.re", "f.im"], 0, 10, 2))>;
+                fs_re = f.re / g2;
+                fs_im = f.im / g2;
+            } else {
+                f2s = 7.4428285367870146E+137 * f.re;
+                fs_im = 7.4428285367870146E+137 * f.im;
+                g2 = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["f2s", "fs_im"], 0, 10, 1))>;
+                fs_re = f2s / g2;
+                fs_im /= g2;
+            }
+            gs_re /= scale;
+            gs_im = -gs_im / scale;
+            sn->re = fs_re * gs_re - fs_im * gs_im;
+            sn->im = fs_re * gs_im + fs_im * gs_re;
+        }
+    } else {
+        f2s = sqrt(g2 / scale + 1.0);
+        fs_re *= f2s;
+        fs_im *= f2s;
+        *cs = 1.0 / f2s;
+        g2 += scale;
+        fs_re /= g2;
+        fs_im /= g2;
+        sn->re = fs_re * gs_re - fs_im * -gs_im;
+        sn->im = fs_re * -gs_im + fs_im * gs_re;
+    }
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_xzlartg_c(\
+%assign comma = ""
+%<comma>const creal_T f\
+%assign comma = ", "
+%<comma>const creal_T g\
+%assign comma = ", "
+%<comma>real_T *cs\
+%assign comma = ", "
+%<comma>creal_T *sn\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 10, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xzlartg_Fcn11(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T scale;
+int32_T count;
+int32_T rescaledir;
+real_T g2;
+real_T f2s;
+real_T fs_re;
+real_T fs_im;
+real_T gs_re;
+real_T gs_im;
+boolean_T guard1 = false;
+%assign _modelSS = ""
+
+scale = fabs(f.re);
+g2 = fabs(f.im);
+if (g2 > scale) {
+    scale = g2;
+}
+g2 = fabs(g.re);
+f2s = fabs(g.im);
+if (f2s > g2) {
+    g2 = f2s;
+}
+if (g2 > scale) {
+    scale = g2;
+}
+fs_re = f.re;
+fs_im = f.im;
+gs_re = g.re;
+gs_im = g.im;
+count = 0;
+rescaledir = 0;
+guard1 = false;
+if (scale >= 7.4428285367870146E+137) {
+    do {
+        count++;
+        fs_re *= 1.3435752215134178E-138;
+        fs_im *= 1.3435752215134178E-138;
+        gs_re *= 1.3435752215134178E-138;
+        gs_im *= 1.3435752215134178E-138;
+        scale *= 1.3435752215134178E-138;
+    } while (!(scale < 7.4428285367870146E+137));
+    rescaledir = 1;
+    guard1 = true;
+} else if (scale <= 1.3435752215134178E-138) {
+    if ((g.re == 0.0) && (g.im == 0.0)) {
+        *cs = 1.0;
+        sn->re = 0.0;
+        sn->im = 0.0;
+        *r = f;
+    } else {
+        do {
+            count++;
+            fs_re *= 7.4428285367870146E+137;
+            fs_im *= 7.4428285367870146E+137;
+            gs_re *= 7.4428285367870146E+137;
+            gs_im *= 7.4428285367870146E+137;
+            scale *= 7.4428285367870146E+137;
+        } while (!(scale > 1.3435752215134178E-138));
+        rescaledir = -1;
+        guard1 = true;
+    }
+} else {
+    guard1 = true;
+}
+if (guard1) {
+    scale = fs_re * fs_re + fs_im * fs_im;
+    g2 = gs_re * gs_re + gs_im * gs_im;
+    f2s = g2;
+    if (1.0 > g2) {
+        f2s = 1.0;
+    }
+    if (scale <= f2s * 2.0041683600089728E-292) {
+        if ((f.re == 0.0) && (f.im == 0.0)) {
+            *cs = 0.0;
+%if SLibCG_FcnCallArgAccessed(0,11,4,0)
+%<SLibCG_AccessArg(0 ,11, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,11,4,1)
+%<SLibCG_AccessArg(0 ,11, 1)>
+%endif
+
+            r->re = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["g.re", "g.im"], 0, 11, 4))>;
+            r->im = 0.0;
+            g2 = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["gs_re", "gs_im"], 0, 11, 3))>;
+            sn->re = gs_re / g2;
+            sn->im = -gs_im / g2;
+        } else {
+            scale = sqrt(g2);
+            *cs = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["fs_re", "fs_im"], 0, 11, 0))> / scale;
+            g2 = fabs(f.re);
+            f2s = fabs(f.im);
+            if (f2s > g2) {
+                g2 = f2s;
+            }
+            if (g2 > 1.0) {
+%if SLibCG_FcnCallArgAccessed(0,11,2,0)
+%<SLibCG_AccessArg(0 ,11, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,11,2,1)
+%<SLibCG_AccessArg(0 ,11, 0)>
+%endif
+
+                g2 = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["f.re", "f.im"], 0, 11, 2))>;
+                fs_re = f.re / g2;
+                fs_im = f.im / g2;
+            } else {
+                f2s = 7.4428285367870146E+137 * f.re;
+                fs_im = 7.4428285367870146E+137 * f.im;
+                g2 = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["f2s", "fs_im"], 0, 11, 1))>;
+                fs_re = f2s / g2;
+                fs_im /= g2;
+            }
+            gs_re /= scale;
+            gs_im = -gs_im / scale;
+            sn->re = fs_re * gs_re - fs_im * gs_im;
+            sn->im = fs_re * gs_im + fs_im * gs_re;
+            r->re = (sn->re * g.re - sn->im * g.im) + *cs * f.re;
+            r->im = (sn->re * g.im + sn->im * g.re) + *cs * f.im;
+        }
+    } else {
+        f2s = sqrt(g2 / scale + 1.0);
+        r->re = f2s * fs_re;
+        r->im = f2s * fs_im;
+        *cs = 1.0 / f2s;
+        g2 += scale;
+        scale = r->re / g2;
+        g2 = r->im / g2;
+        sn->re = scale * gs_re - g2 * -gs_im;
+        sn->im = scale * -gs_im + g2 * gs_re;
+        if (rescaledir > 0) {
+            while (rescaledir <= count) {
+                r->re *= 7.4428285367870146E+137;
+                r->im *= 7.4428285367870146E+137;
+                rescaledir++;
+            }
+        } else {
+            if (rescaledir < 0) {
+                for (rescaledir = 1; rescaledir <= count; rescaledir++) {
+                    r->re *= 1.3435752215134178E-138;
+                    r->im *= 1.3435752215134178E-138;
+                }
+            }
+        }
+    }
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_xzlartg(\
+%assign comma = ""
+%<comma>const creal_T f\
+%assign comma = ", "
+%<comma>const creal_T g\
+%assign comma = ", "
+%<comma>real_T *cs\
+%assign comma = ", "
+%<comma>creal_T *sn\
+%assign comma = ", "
+%<comma>creal_T *r\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 11, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xzhgeqz_Fcn12(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+creal_T ctemp;
+real_T anorm;
+int32_T j;
+int32_T ifirst;
+int32_T istart;
+int32_T ilast;
+int32_T ilastm1;
+int32_T ifrstm;
+int32_T ilastm;
+int32_T iiter;
+boolean_T goto60;
+boolean_T goto70;
+boolean_T goto90;
+int32_T jp1;
+boolean_T ilazro;
+creal_T ad22;
+creal_T shift;
+emxArray_creal_T_parallelizat_T *b_A;
+int32_T jiter;
+real_T scale;
+boolean_T firstNonZero;
+real_T reAij;
+real_T imAij;
+real_T b_temp2;
+int32_T b_i;
+creal_T b_A_0;
+creal_T b_A_1;
+creal_T anorm_0;
+real_T ar;
+real_T ai;
+real_T t1_re;
+real_T t1_im;
+real_T shift_im;
+real_T eshift_re;
+real_T eshift_im;
+boolean_T guard1 = false;
+boolean_T guard2 = false;
+int32_T exitg1;
+boolean_T exitg2;
+%assign _modelSS = ""
+
+%<(SLibCGCallSubFcn("parallelizatio_emxInit_creal_T1", ["&b_A", "2"], 0, 12, 1))>;
+ilast = b_A->size[0] * b_A->size[1];
+b_A->size[0] = A->size[0];
+b_A->size[1] = A->size[1];
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)b_A", "ilast", "sizeof(creal_T)"], 0, 12, 6))>;
+ifirst = A->size[0] * A->size[1];
+for (ilast = 0; ilast < ifirst; ilast++) {
+    b_A->data[ilast] = A->data[ilast];
+}
+*info = -1;
+if ((A->size[0] == 1) && (A->size[1] == 1)) {
+    ihi = 1;
+}
+ilast = alpha1->size[0];
+alpha1->size[0] = A->size[0];
+%if SLibCG_FcnCallArgAccessed(0,12,5,0)
+%<SLibCG_AccessArg(0 ,12, 4)>
+%endif
+
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)alpha1", "ilast", "sizeof(creal_T)"], 0, 12, 5))>;
+ifirst = A->size[0];
+for (ilast = 0; ilast < ifirst; ilast++) {
+    alpha1->data[ilast].re = 0.0;
+    alpha1->data[ilast].im = 0.0;
+}
+ilast = beta1->size[0];
+beta1->size[0] = A->size[0];
+%if SLibCG_FcnCallArgAccessed(0,12,4,0)
+%<SLibCG_AccessArg(0 ,12, 5)>
+%endif
+
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)beta1", "ilast", "sizeof(creal_T)"], 0, 12, 4))>;
+ifirst = A->size[0];
+for (ilast = 0; ilast < ifirst; ilast++) {
+    beta1->data[ilast].re = 1.0;
+    beta1->data[ilast].im = 0.0;
+}
+eshift_re = 0.0;
+eshift_im = 0.0;
+ctemp.re = 0.0;
+ctemp.im = 0.0;
+anorm = 0.0;
+if (!(ilo > ihi)) {
+    scale = 0.0;
+    firstNonZero = true;
+    for (ilast = ilo; ilast <= ihi; ilast++) {
+        ifirst = ilast + 1;
+        if (ihi < ilast + 1) {
+            ifirst = ihi;
+        }
+        for (istart = ilo; istart <= ifirst; istart++) {
+            reAij = A->data[((ilast - 1) * A->size[0] + istart) - 1].re;
+            imAij = A->data[((ilast - 1) * A->size[0] + istart) - 1].im;
+            if (reAij != 0.0) {
+                reAij = fabs(reAij);
+                if (firstNonZero) {
+                    anorm = 1.0;
+                    scale = reAij;
+                    firstNonZero = false;
+                } else if (scale < reAij) {
+                    b_temp2 = scale / reAij;
+                    anorm = anorm * b_temp2 * b_temp2 + 1.0;
+                    scale = reAij;
+                } else {
+                    b_temp2 = reAij / scale;
+                    anorm += b_temp2 * b_temp2;
+                }
+            }
+            if (imAij != 0.0) {
+                reAij = fabs(imAij);
+                if (firstNonZero) {
+                    anorm = 1.0;
+                    scale = reAij;
+                    firstNonZero = false;
+                } else if (scale < reAij) {
+                    b_temp2 = scale / reAij;
+                    anorm = anorm * b_temp2 * b_temp2 + 1.0;
+                    scale = reAij;
+                } else {
+                    b_temp2 = reAij / scale;
+                    anorm += b_temp2 * b_temp2;
+                }
+            }
+        }
+    }
+    anorm = scale * sqrt(anorm);
+}
+imAij = 2.2204460492503131E-16 * anorm;
+scale = 2.2250738585072014E-308;
+if (imAij > 2.2250738585072014E-308) {
+    scale = imAij;
+}
+imAij = 2.2250738585072014E-308;
+if (anorm > 2.2250738585072014E-308) {
+    imAij = anorm;
+}
+anorm = 1.0 / imAij;
+imAij = 1.0 / sqrt(A->size[0]);
+firstNonZero = true;
+for (ilast = ihi; ilast + 1 <= A->size[0]; ilast++) {
+    alpha1->data[ilast] = A->data[A->size[0] * ilast + ilast];
+}
+guard1 = false;
+guard2 = false;
+if (ihi >= ilo) {
+    ifirst = ilo;
+    istart = ilo;
+    ilast = ihi - 1;
+    ilastm1 = ihi - 2;
+    ifrstm = ilo;
+    ilastm = ihi;
+    iiter = 0;
+    goto60 = false;
+    goto70 = false;
+    goto90 = false;
+    jiter = 1;
+    do {
+        exitg1 = 0;
+        if (jiter <= ((ihi - ilo) + 1) * 30) {
+            if (ilast + 1 == ilo) {
+                goto60 = true;
+            } else if (fabs(b_A->data[b_A->size[0] * ilastm1 + ilast].re) + fabs(b_A->data[b_A->size[0] * ilastm1 + ilast].im) <= scale) {
+                b_A->data[ilast + b_A->size[0] * ilastm1].re = 0.0;
+                b_A->data[ilast + b_A->size[0] * ilastm1].im = 0.0;
+                goto60 = true;
+            } else {
+                j = ilastm1;
+                exitg2 = false;
+                while ((!exitg2) && (j + 1 >= ilo)) {
+                    if (j + 1 == ilo) {
+                        ilazro = true;
+                    } else if (fabs(b_A->data[(j - 1) * b_A->size[0] + j].re) + fabs(b_A->data[(j - 1) * b_A->size[0] + j].im) <= scale) {
+                        b_A->data[j + b_A->size[0] * (j - 1)].re = 0.0;
+                        b_A->data[j + b_A->size[0] * (j - 1)].im = 0.0;
+                        ilazro = true;
+                    } else {
+                        ilazro = false;
+                    }
+                    if (ilazro) {
+                        ifirst = j + 1;
+                        goto70 = true;
+                        exitg2 = true;
+                    } else {
+                        j--;
+                    }
+                }
+            }
+            if (!(goto60 || goto70)) {
+                ifirst = alpha1->size[0];
+                ilast = alpha1->size[0];
+                alpha1->size[0] = ifirst;
+%if SLibCG_FcnCallArgAccessed(0,12,3,0)
+%<SLibCG_AccessArg(0 ,12, 4)>
+%endif
+
+                %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)alpha1", "ilast", "sizeof(creal_T)"], 0, 12, 3))>;
+                for (ilast = 0; ilast < ifirst; ilast++) {
+                    alpha1->data[ilast].re = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+                    alpha1->data[ilast].im = 0.0;
+                }
+                ifirst = beta1->size[0];
+                ilast = beta1->size[0];
+                beta1->size[0] = ifirst;
+%if SLibCG_FcnCallArgAccessed(0,12,2,0)
+%<SLibCG_AccessArg(0 ,12, 5)>
+%endif
+
+                %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)beta1", "ilast", "sizeof(creal_T)"], 0, 12, 2))>;
+                for (ilast = 0; ilast < ifirst; ilast++) {
+                    beta1->data[ilast].re = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+                    beta1->data[ilast].im = 0.0;
+                }
+                *info = 0;
+                exitg1 = 1;
+            } else if (goto60) {
+                goto60 = false;
+                alpha1->data[ilast] = b_A->data[b_A->size[0] * ilast + ilast];
+                ilast = ilastm1;
+                ilastm1--;
+                if (ilast + 1 < ilo) {
+                    firstNonZero = false;
+                    guard2 = true;
+                    exitg1 = 1;
+                } else {
+                    iiter = 0;
+                    eshift_re = 0.0;
+                    eshift_im = 0.0;
+                    ilastm = ilast + 1;
+                    if (ifrstm > ilast + 1) {
+                        ifrstm = ilo;
+                    }
+                    jiter++;
+                }
+            } else {
+                if (goto70) {
+                    goto70 = false;
+                    iiter++;
+                    ifrstm = ifirst;
+                    if (iiter - iiter / 10 * 10 != 0) {
+                        ar = b_A->data[b_A->size[0] * ilastm1 + ilastm1].re * anorm;
+                        ai = b_A->data[b_A->size[0] * ilastm1 + ilastm1].im * anorm;
+                        if (ai == 0.0) {
+                            shift.re = ar / imAij;
+                            shift.im = 0.0;
+                        } else if (ar == 0.0) {
+                            shift.re = 0.0;
+                            shift.im = ai / imAij;
+                        } else {
+                            shift.re = ar / imAij;
+                            shift.im = ai / imAij;
+                        }
+                        ar = b_A->data[b_A->size[0] * ilast + ilast].re * anorm;
+                        ai = b_A->data[b_A->size[0] * ilast + ilast].im * anorm;
+                        if (ai == 0.0) {
+                            ad22.re = ar / imAij;
+                            ad22.im = 0.0;
+                        } else if (ar == 0.0) {
+                            ad22.re = 0.0;
+                            ad22.im = ai / imAij;
+                        } else {
+                            ad22.re = ar / imAij;
+                            ad22.im = ai / imAij;
+                        }
+                        t1_re = (shift.re + ad22.re) * 0.5;
+                        t1_im = (shift.im + ad22.im) * 0.5;
+                        ar = b_A->data[b_A->size[0] * ilast + ilastm1].re * anorm;
+                        ai = b_A->data[b_A->size[0] * ilast + ilastm1].im * anorm;
+                        if (ai == 0.0) {
+                            reAij = ar / imAij;
+                            b_temp2 = 0.0;
+                        } else if (ar == 0.0) {
+                            reAij = 0.0;
+                            b_temp2 = ai / imAij;
+                        } else {
+                            reAij = ar / imAij;
+                            b_temp2 = ai / imAij;
+                        }
+                        ar = b_A->data[b_A->size[0] * ilastm1 + ilast].re * anorm;
+                        ai = b_A->data[b_A->size[0] * ilastm1 + ilast].im * anorm;
+                        if (ai == 0.0) {
+                            ar /= imAij;
+                            ai = 0.0;
+                        } else if (ar == 0.0) {
+                            ar = 0.0;
+                            ai /= imAij;
+                        } else {
+                            ar /= imAij;
+                            ai /= imAij;
+                        }
+                        shift_im = shift.re * ad22.im + shift.im * ad22.re;
+                        shift.re = ((t1_re * t1_re - t1_im * t1_im) + (reAij * ar - b_temp2 * ai)) - (shift.re * ad22.re - shift.im * ad22.im);
+                        shift.im = ((t1_re * t1_im + t1_im * t1_re) + (reAij * ai + b_temp2 * ar)) - shift_im;
+                        %<(SLibCGCallSubFcn("parallelizationTest_sqrt", ["&shift"], 0, 12, 9))>;
+                        if ((t1_re - ad22.re) * shift.re + (t1_im - ad22.im) * shift.im <= 0.0) {
+                            shift.re += t1_re;
+                            shift.im += t1_im;
+                        } else {
+                            shift.re = t1_re - shift.re;
+                            shift.im = t1_im - shift.im;
+                        }
+                    } else {
+                        ar = b_A->data[b_A->size[0] * ilastm1 + ilast].re * anorm;
+                        ai = b_A->data[b_A->size[0] * ilastm1 + ilast].im * anorm;
+                        if (ai == 0.0) {
+                            reAij = ar / imAij;
+                            b_temp2 = 0.0;
+                        } else if (ar == 0.0) {
+                            reAij = 0.0;
+                            b_temp2 = ai / imAij;
+                        } else {
+                            reAij = ar / imAij;
+                            b_temp2 = ai / imAij;
+                        }
+                        eshift_re += reAij;
+                        eshift_im += b_temp2;
+                        shift.re = eshift_re;
+                        shift.im = eshift_im;
+                    }
+                    j = ilastm1;
+                    jp1 = ilastm1 + 1;
+                    exitg2 = false;
+                    while ((!exitg2) && (j + 1 > ifirst)) {
+                        istart = j + 1;
+                        ctemp.re = b_A->data[b_A->size[0] * j + j].re * anorm - shift.re * imAij;
+                        ctemp.im = b_A->data[b_A->size[0] * j + j].im * anorm - shift.im * imAij;
+                        reAij = fabs(ctemp.re) + fabs(ctemp.im);
+                        b_temp2 = (fabs(b_A->data[b_A->size[0] * j + jp1].re) + fabs(b_A->data[b_A->size[0] * j + jp1].im)) * anorm;
+                        t1_re = reAij;
+                        if (b_temp2 > reAij) {
+                            t1_re = b_temp2;
+                        }
+                        if ((t1_re < 1.0) && (t1_re != 0.0)) {
+                            reAij /= t1_re;
+                            b_temp2 /= t1_re;
+                        }
+                        if ((fabs(b_A->data[(j - 1) * b_A->size[0] + j].re) + fabs(b_A->data[(j - 1) * b_A->size[0] + j].im)) * b_temp2 <= reAij * scale) {
+                            goto90 = true;
+                            exitg2 = true;
+                        } else {
+                            jp1 = j;
+                            j--;
+                        }
+                    }
+                    if (!goto90) {
+                        istart = ifirst;
+                        ctemp.re = b_A->data[((ifirst - 1) * b_A->size[0] + ifirst) - 1].re * anorm - shift.re * imAij;
+                        ctemp.im = b_A->data[((ifirst - 1) * b_A->size[0] + ifirst) - 1].im * anorm - shift.im * imAij;
+                        goto90 = true;
+                    }
+                }
+                if (goto90) {
+                    goto90 = false;
+                    anorm_0.re = b_A->data[(istart - 1) * b_A->size[0] + istart].re * anorm;
+                    anorm_0.im = b_A->data[(istart - 1) * b_A->size[0] + istart].im * anorm;
+                    %<(SLibCGCallSubFcn("parallelizationTest_xzlartg_c", ["ctemp", "anorm_0", "&reAij", "&ad22"], 0, 12, 8))>;
+                    j = istart;
+                    jp1 = istart - 2;
+                    while (j < ilast + 1) {
+                        if (j > istart) {
+                            b_A_0 = b_A->data[(b_A->size[0] * jp1 + j) - 1];
+                            b_A_1 = b_A->data[b_A->size[0] * jp1 + j];
+                            %<(SLibCGCallSubFcn("parallelizationTest_xzlartg", ["b_A_0", "b_A_1", "&reAij", "&ad22", "&shift"], 0, 12, 7))>;
+                            b_A->data[(j + b_A->size[0] * jp1) - 1] = shift;
+                            b_A->data[j + b_A->size[0] * jp1].re = 0.0;
+                            b_A->data[j + b_A->size[0] * jp1].im = 0.0;
+                        }
+                        for (jp1 = j - 1; jp1 + 1 <= ilastm; jp1++) {
+                            b_temp2 = b_A->data[b_A->size[0] * jp1 + j].re * ad22.re - b_A->data[b_A->size[0] * jp1 + j].im * ad22.im;
+                            t1_re = b_A->data[b_A->size[0] * jp1 + j].im * ad22.re + b_A->data[b_A->size[0] * jp1 + j].re * ad22.im;
+                            shift.re = b_A->data[(b_A->size[0] * jp1 + j) - 1].re * reAij + b_temp2;
+                            shift.im = b_A->data[(b_A->size[0] * jp1 + j) - 1].im * reAij + t1_re;
+                            b_temp2 = b_A->data[(b_A->size[0] * jp1 + j) - 1].re;
+                            t1_re = b_A->data[(b_A->size[0] * jp1 + j) - 1].im;
+                            t1_im = b_A->data[(b_A->size[0] * jp1 + j) - 1].im;
+                            ar = b_A->data[(b_A->size[0] * jp1 + j) - 1].re;
+                            b_A->data[j + b_A->size[0] * jp1].re = b_A->data[b_A->size[0] * jp1 + j].re * reAij - (ad22.re * b_temp2 + ad22.im * t1_re);
+                            b_A->data[j + b_A->size[0] * jp1].im = b_A->data[b_A->size[0] * jp1 + j].im * reAij - (ad22.re * t1_im - ad22.im * ar);
+                            b_A->data[(j + b_A->size[0] * jp1) - 1] = shift;
+                        }
+                        ad22.re = -ad22.re;
+                        ad22.im = -ad22.im;
+                        jp1 = j;
+                        if (ilast + 1 < j + 2) {
+                            jp1 = ilast - 1;
+                        }
+                        for (b_i = ifrstm - 1; b_i + 1 <= jp1 + 2; b_i++) {
+                            b_temp2 = b_A->data[(j - 1) * b_A->size[0] + b_i].re * ad22.re - b_A->data[(j - 1) * b_A->size[0] + b_i].im * ad22.im;
+                            t1_re = b_A->data[(j - 1) * b_A->size[0] + b_i].im * ad22.re + b_A->data[(j - 1) * b_A->size[0] + b_i].re * ad22.im;
+                            shift.re = b_A->data[b_A->size[0] * j + b_i].re * reAij + b_temp2;
+                            shift.im = b_A->data[b_A->size[0] * j + b_i].im * reAij + t1_re;
+                            b_temp2 = b_A->data[b_A->size[0] * j + b_i].re;
+                            t1_re = b_A->data[b_A->size[0] * j + b_i].im;
+                            t1_im = b_A->data[b_A->size[0] * j + b_i].im;
+                            ar = b_A->data[b_A->size[0] * j + b_i].re;
+                            b_A->data[b_i + b_A->size[0] * (j - 1)].re = b_A->data[(j - 1) * b_A->size[0] + b_i].re * reAij - (ad22.re * b_temp2 + ad22.im * t1_re);
+                            b_A->data[b_i + b_A->size[0] * (j - 1)].im = b_A->data[(j - 1) * b_A->size[0] + b_i].im * reAij - (ad22.re * t1_im - ad22.im * ar);
+                            b_A->data[b_i + b_A->size[0] * j] = shift;
+                        }
+                        jp1 = j - 1;
+                        j++;
+                    }
+                }
+                jiter++;
+            }
+        } else {
+            guard2 = true;
+            exitg1 = 1;
+        }
+    } while (exitg1 == 0);
+} else {
+    guard1 = true;
+}
+if (guard2) {
+    if (firstNonZero) {
+        *info = ilast;
+        for (ifirst = 0; ifirst + 1 <= ilast + 1; ifirst++) {
+            alpha1->data[ifirst].re = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+            alpha1->data[ifirst].im = 0.0;
+            beta1->data[ifirst].re = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+            beta1->data[ifirst].im = 0.0;
+        }
+    } else {
+        guard1 = true;
+    }
+}
+if (guard1) {
+    for (ilast = 0; ilast + 1 < ilo; ilast++) {
+        alpha1->data[ilast] = b_A->data[b_A->size[0] * ilast + ilast];
+    }
+}
+%<(SLibCGCallSubFcn("parallelization_emxFree_creal_T", ["&b_A"], 0, 12, 0))>;
+(*info)++;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_xzhgeqz(\
+%assign comma = ""
+%<comma>const emxArray_creal_T_parallelizat_T *A\
+%assign comma = ", "
+%<comma>int32_T ilo\
+%assign comma = ", "
+%<comma>int32_T ihi\
+%assign comma = ", "
+%<comma>int32_T *info\
+%assign comma = ", "
+%<comma>emxArray_creal_T_parallelizat_T *alpha1\
+%assign comma = ", "
+%<comma>emxArray_creal_T_parallelizat_T *beta1\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 12, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xzgeev_Fcn13(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+emxArray_creal_T_parallelizat_T *At;
+real_T anrm;
+boolean_T ilascl;
+int32_T ihi;
+real_T absxk;
+int32_T k;
+real_T cfromc;
+real_T ctoc;
+boolean_T notdone;
+real_T cto1;
+real_T mul;
+emxArray_creal_T_parallelizat_T *b_A;
+int32_T ii;
+int32_T nzcount;
+int32_T jj;
+creal_T atmp;
+int32_T jrow;
+creal_T s;
+int32_T jcol;
+real_T b_mul;
+boolean_T At_0;
+creal_T b_A_0;
+creal_T b_A_1;
+boolean_T exitg1;
+int32_T exitg2;
+int32_T exitg3;
+boolean_T exitg4;
+%assign _modelSS = ""
+
+%<(SLibCGCallSubFcn("parallelizatio_emxInit_creal_T1", ["&At", "2"], 0, 13, 14))>;
+ii = At->size[0] * At->size[1];
+At->size[0] = A->size[0];
+At->size[1] = A->size[1];
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)At", "ii", "sizeof(creal_T)"], 0, 13, 2))>;
+nzcount = A->size[0] * A->size[1];
+for (ii = 0; ii < nzcount; ii++) {
+    At->data[ii].re = A->data[ii];
+    At->data[ii].im = 0.0;
+}
+*info = 0;
+ii = alpha1->size[0];
+alpha1->size[0] = At->size[0];
+%if SLibCG_FcnCallArgAccessed(0,13,3,0)
+%<SLibCG_AccessArg(0 ,13, 2)>
+%endif
+
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)alpha1", "ii", "sizeof(creal_T)"], 0, 13, 3))>;
+nzcount = At->size[0];
+for (ii = 0; ii < nzcount; ii++) {
+    alpha1->data[ii].re = 0.0;
+    alpha1->data[ii].im = 0.0;
+}
+ii = beta1->size[0];
+beta1->size[0] = At->size[0];
+%if SLibCG_FcnCallArgAccessed(0,13,4,0)
+%<SLibCG_AccessArg(0 ,13, 3)>
+%endif
+
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)beta1", "ii", "sizeof(creal_T)"], 0, 13, 4))>;
+nzcount = At->size[0];
+for (ii = 0; ii < nzcount; ii++) {
+    beta1->data[ii].re = 0.0;
+    beta1->data[ii].im = 0.0;
+}
+if (!((At->size[0] == 0) || (At->size[1] == 0))) {
+    anrm = 0.0;
+    k = 0;
+    exitg1 = false;
+    while ((!exitg1) && (k <= At->size[0] * At->size[1] - 1)) {
+        absxk = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["At->data[k].re", "At->data[k].im"], 0, 13, 0))>;
+        if (rtIsNaN(absxk)) {
+            anrm = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+            exitg1 = true;
+        } else {
+            if (absxk > anrm) {
+                anrm = absxk;
+            }
+            k++;
+        }
+    }
+    if (!((!rtIsInf(anrm)) && (!rtIsNaN(anrm)))) {
+        ii = alpha1->size[0];
+        alpha1->size[0] = At->size[0];
+%if SLibCG_FcnCallArgAccessed(0,13,5,0)
+%<SLibCG_AccessArg(0 ,13, 2)>
+%endif
+
+        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)alpha1", "ii", "sizeof(creal_T)"], 0, 13, 5))>;
+        nzcount = At->size[0];
+        for (ii = 0; ii < nzcount; ii++) {
+            alpha1->data[ii].re = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+            alpha1->data[ii].im = 0.0;
+        }
+        ii = beta1->size[0];
+        beta1->size[0] = At->size[0];
+%if SLibCG_FcnCallArgAccessed(0,13,6,0)
+%<SLibCG_AccessArg(0 ,13, 3)>
+%endif
+
+        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)beta1", "ii", "sizeof(creal_T)"], 0, 13, 6))>;
+        nzcount = At->size[0];
+        for (ii = 0; ii < nzcount; ii++) {
+            beta1->data[ii].re = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+            beta1->data[ii].im = 0.0;
+        }
+    } else {
+        ilascl = false;
+        absxk = anrm;
+        if ((anrm > 0.0) && (anrm < 6.7178761075670888E-139)) {
+            absxk = 6.7178761075670888E-139;
+            ilascl = true;
+        } else {
+            if (anrm > 1.4885657073574029E+138) {
+                absxk = 1.4885657073574029E+138;
+                ilascl = true;
+            }
+        }
+        if (ilascl) {
+            cfromc = anrm;
+            ctoc = absxk;
+            notdone = true;
+            while (notdone) {
+                b_mul = cfromc * 2.0041683600089728E-292;
+                cto1 = ctoc / 4.9896007738368E+291;
+                if ((b_mul > ctoc) && (ctoc != 0.0)) {
+                    mul = 2.0041683600089728E-292;
+                    cfromc = b_mul;
+                } else if (cto1 > cfromc) {
+                    mul = 4.9896007738368E+291;
+                    ctoc = cto1;
+                } else {
+                    mul = ctoc / cfromc;
+                    notdone = false;
+                }
+                k = At->size[0];
+                ihi = At->size[1];
+                nzcount = k * ihi;
+                for (ii = 0; ii < nzcount; ii++) {
+                    At->data[ii].re *= mul;
+                    At->data[ii].im *= mul;
+                }
+            }
+        }
+        k = 0;
+        ihi = At->size[0];
+        %<(SLibCGCallSubFcn("parallelizatio_emxInit_creal_T1", ["&b_A", "2"], 0, 13, 15))>;
+        if (At->size[0] <= 1) {
+            ihi = 1;
+        } else {
+            do {
+                exitg3 = 0;
+                jrow = 0;
+                jcol = 0;
+                notdone = false;
+                ii = ihi;
+                exitg1 = false;
+                while ((!exitg1) && (ii > 0)) {
+                    nzcount = 0;
+                    jrow = ii;
+                    jcol = ihi;
+                    jj = 1;
+                    exitg4 = false;
+                    while ((!exitg4) && (jj <= ihi)) {
+                        At_0 = ((At->data[((jj - 1) * At->size[0] + ii) - 1].re != 0.0) || (At->data[((jj - 1) * At->size[0] + ii) - 1].im != 0.0));
+                        if (At_0 || (ii == jj)) {
+                            if (nzcount == 0) {
+                                jcol = jj;
+                                nzcount = 1;
+                                jj++;
+                            } else {
+                                nzcount = 2;
+                                exitg4 = true;
+                            }
+                        } else {
+                            jj++;
+                        }
+                    }
+                    if (nzcount < 2) {
+                        notdone = true;
+                        exitg1 = true;
+                    } else {
+                        ii--;
+                    }
+                }
+                if (!notdone) {
+                    exitg3 = 2;
+                } else {
+                    ii = b_A->size[0] * b_A->size[1];
+                    b_A->size[0] = At->size[0];
+                    b_A->size[1] = At->size[1];
+                    %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)b_A", "ii", "sizeof(creal_T)"], 0, 13, 8))>;
+                    nzcount = At->size[0] * At->size[1];
+                    for (ii = 0; ii < nzcount; ii++) {
+                        b_A->data[ii] = At->data[ii];
+                    }
+                    if (jrow != ihi) {
+                        for (ii = 0; ii + 1 <= At->size[0]; ii++) {
+                            atmp = b_A->data[(b_A->size[0] * ii + jrow) - 1];
+                            b_A->data[(jrow + b_A->size[0] * ii) - 1] = b_A->data[(b_A->size[0] * ii + ihi) - 1];
+                            b_A->data[(ihi + b_A->size[0] * ii) - 1] = atmp;
+                        }
+                    }
+                    if (jcol != ihi) {
+                        for (jrow = 0; jrow + 1 <= ihi; jrow++) {
+                            atmp = b_A->data[(jcol - 1) * b_A->size[0] + jrow];
+                            b_A->data[jrow + b_A->size[0] * (jcol - 1)] = b_A->data[(ihi - 1) * b_A->size[0] + jrow];
+                            b_A->data[jrow + b_A->size[0] * (ihi - 1)] = atmp;
+                        }
+                    }
+                    ii = At->size[0] * At->size[1];
+                    At->size[0] = b_A->size[0];
+                    At->size[1] = b_A->size[1];
+                    %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)At", "ii", "sizeof(creal_T)"], 0, 13, 11))>;
+                    nzcount = b_A->size[0] * b_A->size[1];
+                    for (ii = 0; ii < nzcount; ii++) {
+                        At->data[ii] = b_A->data[ii];
+                    }
+                    ihi--;
+                    if (ihi == 1) {
+                        exitg3 = 1;
+                    }
+                }
+            } while (exitg3 == 0);
+            if (exitg3 == 1) {
+            } else {
+                do {
+                    exitg2 = 0;
+                    jrow = 0;
+                    jcol = 0;
+                    notdone = false;
+                    ii = k + 1;
+                    exitg1 = false;
+                    while ((!exitg1) && (ii <= ihi)) {
+                        nzcount = 0;
+                        jrow = ihi;
+                        jcol = ii;
+                        jj = k + 1;
+                        exitg4 = false;
+                        while ((!exitg4) && (jj <= ihi)) {
+                            At_0 = ((At->data[((ii - 1) * At->size[0] + jj) - 1].re != 0.0) || (At->data[((ii - 1) * At->size[0] + jj) - 1].im != 0.0));
+                            if (At_0 || (jj == ii)) {
+                                if (nzcount == 0) {
+                                    jrow = jj;
+                                    nzcount = 1;
+                                    jj++;
+                                } else {
+                                    nzcount = 2;
+                                    exitg4 = true;
+                                }
+                            } else {
+                                jj++;
+                            }
+                        }
+                        if (nzcount < 2) {
+                            notdone = true;
+                            exitg1 = true;
+                        } else {
+                            ii++;
+                        }
+                    }
+                    if (!notdone) {
+                        exitg2 = 1;
+                    } else {
+                        ii = b_A->size[0] * b_A->size[1];
+                        b_A->size[0] = At->size[0];
+                        b_A->size[1] = At->size[1];
+                        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)b_A", "ii", "sizeof(creal_T)"], 0, 13, 10))>;
+                        nzcount = At->size[0] * At->size[1];
+                        for (ii = 0; ii < nzcount; ii++) {
+                            b_A->data[ii] = At->data[ii];
+                        }
+                        if (k + 1 != jrow) {
+                            for (ii = k; ii + 1 <= At->size[0]; ii++) {
+                                atmp = b_A->data[(b_A->size[0] * ii + jrow) - 1];
+                                b_A->data[(jrow + b_A->size[0] * ii) - 1] = b_A->data[b_A->size[0] * ii + k];
+                                b_A->data[k + b_A->size[0] * ii] = atmp;
+                            }
+                        }
+                        if (k + 1 != jcol) {
+                            for (jrow = 0; jrow + 1 <= ihi; jrow++) {
+                                atmp = b_A->data[(jcol - 1) * b_A->size[0] + jrow];
+                                b_A->data[jrow + b_A->size[0] * (jcol - 1)] = b_A->data[b_A->size[0] * k + jrow];
+                                b_A->data[jrow + b_A->size[0] * k] = atmp;
+                            }
+                        }
+                        ii = At->size[0] * At->size[1];
+                        At->size[0] = b_A->size[0];
+                        At->size[1] = b_A->size[1];
+                        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)At", "ii", "sizeof(creal_T)"], 0, 13, 13))>;
+                        nzcount = b_A->size[0] * b_A->size[1];
+                        for (ii = 0; ii < nzcount; ii++) {
+                            At->data[ii] = b_A->data[ii];
+                        }
+                        k++;
+                        if (k + 1 == ihi) {
+                            exitg2 = 1;
+                        }
+                    }
+                } while (exitg2 == 0);
+            }
+        }
+        ii = b_A->size[0] * b_A->size[1];
+        b_A->size[0] = At->size[0];
+        b_A->size[1] = At->size[1];
+        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)b_A", "ii", "sizeof(creal_T)"], 0, 13, 7))>;
+        nzcount = At->size[0] * At->size[1];
+        for (ii = 0; ii < nzcount; ii++) {
+            b_A->data[ii] = At->data[ii];
+        }
+        if ((!(At->size[0] <= 1)) && (!(ihi < k + 3))) {
+            for (jcol = k; jcol + 1 < ihi - 1; jcol++) {
+                for (jrow = ihi - 1; jrow + 1 > jcol + 2; jrow--) {
+                    b_A_0 = b_A->data[(b_A->size[0] * jcol + jrow) - 1];
+                    b_A_1 = b_A->data[b_A->size[0] * jcol + jrow];
+                    %<(SLibCGCallSubFcn("parallelizationTest_xzlartg", ["b_A_0", "b_A_1", "&cfromc", "&s", "&atmp"], 0, 13, 1))>;
+                    b_A->data[(jrow + b_A->size[0] * jcol) - 1] = atmp;
+                    b_A->data[jrow + b_A->size[0] * jcol].re = 0.0;
+                    b_A->data[jrow + b_A->size[0] * jcol].im = 0.0;
+                    for (ii = jcol + 1; ii + 1 <= At->size[0]; ii++) {
+                        ctoc = b_A->data[b_A->size[0] * ii + jrow].re * s.re - b_A->data[b_A->size[0] * ii + jrow].im * s.im;
+                        b_mul = b_A->data[b_A->size[0] * ii + jrow].im * s.re + b_A->data[b_A->size[0] * ii + jrow].re * s.im;
+                        atmp.re = b_A->data[(b_A->size[0] * ii + jrow) - 1].re * cfromc + ctoc;
+                        atmp.im = b_A->data[(b_A->size[0] * ii + jrow) - 1].im * cfromc + b_mul;
+                        ctoc = b_A->data[(b_A->size[0] * ii + jrow) - 1].re;
+                        b_mul = b_A->data[(b_A->size[0] * ii + jrow) - 1].im;
+                        cto1 = b_A->data[(b_A->size[0] * ii + jrow) - 1].im;
+                        mul = b_A->data[(b_A->size[0] * ii + jrow) - 1].re;
+                        b_A->data[jrow + b_A->size[0] * ii].re = b_A->data[b_A->size[0] * ii + jrow].re * cfromc - (s.re * ctoc + s.im * b_mul);
+                        b_A->data[jrow + b_A->size[0] * ii].im = b_A->data[b_A->size[0] * ii + jrow].im * cfromc - (s.re * cto1 - s.im * mul);
+                        b_A->data[(jrow + b_A->size[0] * ii) - 1] = atmp;
+                    }
+                    s.re = -s.re;
+                    s.im = -s.im;
+                    for (ii = 0; ii + 1 <= ihi; ii++) {
+                        ctoc = b_A->data[(jrow - 1) * b_A->size[0] + ii].re * s.re - b_A->data[(jrow - 1) * b_A->size[0] + ii].im * s.im;
+                        b_mul = b_A->data[(jrow - 1) * b_A->size[0] + ii].im * s.re + b_A->data[(jrow - 1) * b_A->size[0] + ii].re * s.im;
+                        atmp.re = b_A->data[b_A->size[0] * jrow + ii].re * cfromc + ctoc;
+                        atmp.im = b_A->data[b_A->size[0] * jrow + ii].im * cfromc + b_mul;
+                        ctoc = b_A->data[b_A->size[0] * jrow + ii].re;
+                        b_mul = b_A->data[b_A->size[0] * jrow + ii].im;
+                        cto1 = b_A->data[b_A->size[0] * jrow + ii].im;
+                        mul = b_A->data[b_A->size[0] * jrow + ii].re;
+                        b_A->data[ii + b_A->size[0] * (jrow - 1)].re = b_A->data[(jrow - 1) * b_A->size[0] + ii].re * cfromc - (s.re * ctoc + s.im * b_mul);
+                        b_A->data[ii + b_A->size[0] * (jrow - 1)].im = b_A->data[(jrow - 1) * b_A->size[0] + ii].im * cfromc - (s.re * cto1 - s.im * mul);
+                        b_A->data[ii + b_A->size[0] * jrow] = atmp;
+                    }
+                }
+            }
+        }
+%if SLibCG_FcnCallArgAccessed(0,13,9,3)
+%<SLibCG_AccessArg(0 ,13, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,13,9,4)
+%<SLibCG_AccessArg(0 ,13, 2)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,13,9,5)
+%<SLibCG_AccessArg(0 ,13, 3)>
+%endif
+
+        %<(SLibCGCallSubFcn("parallelizationTest_xzhgeqz", ["b_A", "k + 1", "ihi", "info", "alpha1", "beta1"], 0, 13, 9))>;
+        %<(SLibCGCallSubFcn("parallelization_emxFree_creal_T", ["&b_A"], 0, 13, 17))>;
+        if (!((*info != 0) || (!ilascl))) {
+            while (ilascl) {
+                cfromc = absxk * 2.0041683600089728E-292;
+                ctoc = anrm / 4.9896007738368E+291;
+                if ((cfromc > anrm) && (anrm != 0.0)) {
+                    b_mul = 2.0041683600089728E-292;
+                    absxk = cfromc;
+                } else if (ctoc > absxk) {
+                    b_mul = 4.9896007738368E+291;
+                    anrm = ctoc;
+                } else {
+                    b_mul = anrm / absxk;
+                    ilascl = false;
+                }
+                ii = alpha1->size[0];
+%if SLibCG_FcnCallArgAccessed(0,13,12,0)
+%<SLibCG_AccessArg(0 ,13, 2)>
+%endif
+
+                %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)alpha1", "ii", "sizeof(creal_T)"], 0, 13, 12))>;
+                nzcount = alpha1->size[0];
+                for (ii = 0; ii < nzcount; ii++) {
+                    alpha1->data[ii].re *= b_mul;
+                    alpha1->data[ii].im *= b_mul;
+                }
+            }
+        }
+    }
+}
+%<(SLibCGCallSubFcn("parallelization_emxFree_creal_T", ["&At"], 0, 13, 16))>;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_xzgeev(\
+%assign comma = ""
+%<comma>const emxArray_real_T_parallelizati_T *A\
+%assign comma = ", "
+%<comma>int32_T *info\
+%assign comma = ", "
+%<comma>emxArray_creal_T_parallelizat_T *alpha1\
+%assign comma = ", "
+%<comma>emxArray_creal_T_parallelizat_T *beta1\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 13, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelization_emxInit_real_T1_Fcn14(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+emxArray_real_T_parallelizati_T *emxArray;
+int32_T i;
+*pEmxArray = (emxArray_real_T_parallelizati_T *)malloc(sizeof(emxArray_real_T_parallelizati_T));
+emxArray = *pEmxArray;
+emxArray->data = (real_T *)NULL;
+emxArray->numDimensions = numDimensions;
+emxArray->size = (int32_T *)malloc((uint32_T)(sizeof(int32_T) * numDimensions));
+emxArray->allocatedSize = 0;
+emxArray->canFreeData = true;
+for (i = 0; i < numDimensions; i++) {
+    emxArray->size[i] = 0;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelization_emxInit_real_T1(\
+%assign comma = ""
+%<comma>emxArray_real_T_parallelizati_T **pEmxArray\
+%assign comma = ", "
+%<comma>int32_T numDimensions\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 14, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xnrm2_Fcn15(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T y;
+real_T scale;
+int32_T kend;
+real_T absxk;
+real_T t;
+int32_T k;
+y = 0.0;
+if (!(n < 1)) {
+    if (n == 1) {
+        y = fabs(x->data[ix0 - 1]);
+    } else {
+        scale = 2.2250738585072014E-308;
+        kend = (ix0 + n) - 1;
+        for (k = ix0; k <= kend; k++) {
+            absxk = fabs(x->data[k - 1]);
+            if (absxk > scale) {
+                t = scale / absxk;
+                y = y * t * t + 1.0;
+                scale = absxk;
+            } else {
+                t = absxk / scale;
+                y += t * t;
+            }
+        }
+        y = scale * sqrt(y);
+    }
+}
+return y;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static real_T parallelizationTest_xnrm2(\
+%assign comma = ""
+%<comma>int32_T n\
+%assign comma = ", "
+%<comma>const emxArray_real_T_parallelizati_T *x\
+%assign comma = ", "
+%<comma>int32_T ix0\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 15, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xscal_Fcn16(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T b;
+int32_T k;
+b = (ix0 + n) - 1;
+for (k = ix0; k <= b; k++) {
+    x->data[k - 1] *= a;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_xscal(\
+%assign comma = ""
+%<comma>int32_T n\
+%assign comma = ", "
+%<comma>real_T a\
+%assign comma = ", "
+%<comma>emxArray_real_T_parallelizati_T *x\
+%assign comma = ", "
+%<comma>int32_T ix0\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 16, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xgehrd_Fcn17(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+emxArray_real_T_parallelizati_T *tau;
+int32_T n;
+emxArray_real_T_parallelizati_T *work;
+int32_T im1n;
+int32_T in;
+int32_T ia0;
+real_T alpha1;
+int32_T i;
+real_T xnorm;
+int32_T knt;
+int32_T rowleft;
+int32_T iy;
+int32_T e;
+int32_T b_ia;
+int32_T jy;
+real_T temp;
+int32_T b_ix;
+int32_T d_ix;
+int32_T exitg1;
+boolean_T exitg2;
+%assign _modelSS = ""
+
+%<(SLibCGCallSubFcn("parallelization_emxInit_real_T1", ["&tau", "1"], 0, 17, 3))>;
+%<(SLibCGCallSubFcn("parallelization_emxInit_real_T1", ["&work", "1"], 0, 17, 2))>;
+n = a->size[0];
+if (a->size[0] < 1) {
+    im1n = 1;
+} else {
+    im1n = a->size[0];
+}
+i = tau->size[0];
+tau->size[0] = im1n - 1;
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)tau", "i", "sizeof(real_T)"], 0, 17, 5))>;
+im1n = a->size[0];
+i = work->size[0];
+work->size[0] = im1n;
+%<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)work", "i", "sizeof(real_T)"], 0, 17, 4))>;
+for (i = 0; i < im1n; i++) {
+    work->data[i] = 0.0;
+}
+for (i = 0; i + 1 < n; i++) {
+    im1n = i * n + 2;
+    in = (i + 1) * n;
+    ia0 = i + 3;
+    if (!(ia0 < n)) {
+        ia0 = n;
+    }
+    ia0 += i * n;
+    jy = (n - i) - 2;
+    alpha1 = a->data[(a->size[0] * i + i) + 1];
+    temp = 0.0;
+    if (!(jy + 1 <= 0)) {
+%if SLibCG_FcnCallArgAccessed(0,17,12,1)
+%<SLibCG_AccessArg(0 ,17, 0)>
+%endif
+
+        xnorm = %<(SLibCGCallSubFcn("parallelizationTest_xnrm2", ["jy", "a", "ia0"], 0, 17, 12))>;
+        if (xnorm != 0.0) {
+%if SLibCG_FcnCallArgAccessed(0,17,11,0)
+%<SLibCG_AccessArg(0 ,17, 0)>
+%<SLibCG_AccessArg(0 ,17, 0)>
+%endif
+
+            xnorm = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["a->data[(a->size[0] * i + i) + 1]", "xnorm"], 0, 17, 11))>;
+            if (a->data[(a->size[0] * i + i) + 1] >= 0.0) {
+                xnorm = -xnorm;
+            }
+            if (fabs(xnorm) < 1.0020841800044864E-292) {
+                knt = 0;
+                do {
+                    knt++;
+%if SLibCG_FcnCallArgAccessed(0,17,7,2)
+%<SLibCG_AccessArg(0 ,17, 0)>
+%endif
+
+                    %<(SLibCGCallSubFcn("parallelizationTest_xscal", ["jy", "9.9792015476736E+291", "a", "ia0"], 0, 17, 7))>;
+                    xnorm *= 9.9792015476736E+291;
+                    alpha1 *= 9.9792015476736E+291;
+                } while (!(fabs(xnorm) >= 1.0020841800044864E-292));
+%if SLibCG_FcnCallArgAccessed(0,17,9,1)
+%<SLibCG_AccessArg(0 ,17, 0)>
+%endif
+
+                xnorm = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["alpha1", "%<(SLibCGCallSubFcn("parallelizationTest_xnrm2", ["jy", "a", "ia0"], 0, 17, 9))>"], 0, 17, 10))>;
+                if (alpha1 >= 0.0) {
+                    xnorm = -xnorm;
+                }
+                temp = (xnorm - alpha1) / xnorm;
+%if SLibCG_FcnCallArgAccessed(0,17,6,2)
+%<SLibCG_AccessArg(0 ,17, 0)>
+%endif
+
+                %<(SLibCGCallSubFcn("parallelizationTest_xscal", ["jy", "1.0 / (alpha1 - xnorm)", "a", "ia0"], 0, 17, 6))>;
+                for (ia0 = 1; ia0 <= knt; ia0++) {
+                    xnorm *= 1.0020841800044864E-292;
+                }
+                alpha1 = xnorm;
+            } else {
+                temp = (xnorm - a->data[(a->size[0] * i + i) + 1]) / xnorm;
+%if SLibCG_FcnCallArgAccessed(0,17,8,1)
+%<SLibCG_AccessArg(0 ,17, 0)>
+%<SLibCG_AccessArg(0 ,17, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,17,8,2)
+%<SLibCG_AccessArg(0 ,17, 0)>
+%endif
+
+                %<(SLibCGCallSubFcn("parallelizationTest_xscal", ["jy", "1.0 / (a->data[(i + a->size[0] * i) + 1] - xnorm)", "a", "ia0"], 0, 17, 8))>;
+                alpha1 = xnorm;
+            }
+        }
+    }
+    tau->data[i] = temp;
+    a->data[(i + a->size[0] * i) + 1] = 1.0;
+    knt = (n - i) - 1;
+    jy = (i + im1n) - 1;
+    if (tau->data[i] != 0.0) {
+        ia0 = jy + knt;
+        while ((knt > 0) && (a->data[ia0 - 1] == 0.0)) {
+            knt--;
+            ia0--;
+        }
+        ia0 = n;
+        exitg2 = false;
+        while ((!exitg2) && (ia0 > 0)) {
+            rowleft = in + ia0;
+            d_ix = rowleft;
+            do {
+                exitg1 = 0;
+                if ((n > 0) && (d_ix <= (knt - 1) * n + rowleft)) {
+                    if (a->data[d_ix - 1] != 0.0) {
+                        exitg1 = 1;
+                    } else {
+                        d_ix += n;
+                    }
+                } else {
+                    ia0--;
+                    exitg1 = 2;
+                }
+            } while (exitg1 == 0);
+            if (exitg1 == 1) {
+                exitg2 = true;
+            }
+        }
+    } else {
+        knt = 0;
+        ia0 = 0;
+    }
+    if (knt > 0) {
+        if (ia0 != 0) {
+            for (rowleft = 1; rowleft <= ia0; rowleft++) {
+                work->data[rowleft - 1] = 0.0;
+            }
+            rowleft = jy;
+            d_ix = ((knt - 1) * n + in) + 1;
+            b_ix = in + 1;
+            while ((n > 0) && (b_ix <= d_ix)) {
+                iy = 0;
+                e = (b_ix + ia0) - 1;
+                for (b_ia = b_ix; b_ia <= e; b_ia++) {
+                    work->data[iy] += a->data[b_ia - 1] * a->data[rowleft];
+                    iy++;
+                }
+                rowleft++;
+                b_ix += n;
+            }
+        }
+        if (!(-tau->data[i] == 0.0)) {
+            rowleft = in;
+            for (d_ix = 1; d_ix <= knt; d_ix++) {
+                if (a->data[jy] != 0.0) {
+                    temp = a->data[jy] * -tau->data[i];
+                    b_ix = 0;
+                    iy = ia0 + rowleft;
+                    for (e = rowleft; e + 1 <= iy; e++) {
+                        a->data[e] += work->data[b_ix] * temp;
+                        b_ix++;
+                    }
+                }
+                jy++;
+                rowleft += n;
+            }
+        }
+    }
+    knt = (n - i) - 1;
+    im1n = (i + im1n) - 1;
+    ia0 = (i + in) + 2;
+    if (tau->data[i] != 0.0) {
+        in = im1n + knt;
+        while ((knt > 0) && (a->data[in - 1] == 0.0)) {
+            knt--;
+            in--;
+        }
+        in = (n - i) - 1;
+        exitg2 = false;
+        while ((!exitg2) && (in > 0)) {
+            jy = (in - 1) * n + ia0;
+            rowleft = jy;
+            do {
+                exitg1 = 0;
+                if (rowleft <= (jy + knt) - 1) {
+                    if (a->data[rowleft - 1] != 0.0) {
+                        exitg1 = 1;
+                    } else {
+                        rowleft++;
+                    }
+                } else {
+                    in--;
+                    exitg1 = 2;
+                }
+            } while (exitg1 == 0);
+            if (exitg1 == 1) {
+                exitg2 = true;
+            }
+        }
+    } else {
+        knt = 0;
+        in = 0;
+    }
+    if (knt > 0) {
+        if (in != 0) {
+            for (jy = 1; jy <= in; jy++) {
+                work->data[jy - 1] = 0.0;
+            }
+            jy = 0;
+            rowleft = (in - 1) * n + ia0;
+            d_ix = ia0;
+            while ((n > 0) && (d_ix <= rowleft)) {
+                b_ix = im1n;
+                temp = 0.0;
+                iy = (d_ix + knt) - 1;
+                for (e = d_ix; e <= iy; e++) {
+                    temp += a->data[e - 1] * a->data[b_ix];
+                    b_ix++;
+                }
+                work->data[jy] += temp;
+                jy++;
+                d_ix += n;
+            }
+        }
+        if (!(-tau->data[i] == 0.0)) {
+            ia0--;
+            jy = 0;
+            for (rowleft = 1; rowleft <= in; rowleft++) {
+                if (work->data[jy] != 0.0) {
+                    temp = work->data[jy] * -tau->data[i];
+                    d_ix = im1n;
+                    b_ix = knt + ia0;
+                    for (iy = ia0; iy + 1 <= b_ix; iy++) {
+                        a->data[iy] += a->data[d_ix] * temp;
+                        d_ix++;
+                    }
+                }
+                jy++;
+                ia0 += n;
+            }
+        }
+    }
+    a->data[(i + a->size[0] * i) + 1] = alpha1;
+}
+%<(SLibCGCallSubFcn("parallelizationT_emxFree_real_T", ["&work"], 0, 17, 0))>;
+%<(SLibCGCallSubFcn("parallelizationT_emxFree_real_T", ["&tau"], 0, 17, 1))>;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_xgehrd(\
+%assign comma = ""
+%<comma>emxArray_real_T_parallelizati_T *a\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 17, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xnrm2_e_Fcn18(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T y;
+real_T scale;
+real_T absxk;
+real_T t;
+int32_T k;
+y = 0.0;
+if (!(n < 1)) {
+    if (n == 1) {
+        y = fabs(x[1]);
+    } else {
+        scale = 2.2250738585072014E-308;
+        for (k = 2; k <= n + 1; k++) {
+            absxk = fabs(x[k - 1]);
+            if (absxk > scale) {
+                t = scale / absxk;
+                y = y * t * t + 1.0;
+                scale = absxk;
+            } else {
+                t = absxk / scale;
+                y += t * t;
+            }
+        }
+        y = scale * sqrt(y);
+    }
+}
+return y;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static real_T parallelizationTest_xnrm2_e(\
+%assign comma = ""
+%<comma>int32_T n\
+%assign comma = ", "
+%<comma>const real_T x[3]\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 18, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xzlarfg_Fcn19(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T tau;
+real_T xnorm;
+int32_T knt;
+int32_T c_k;
+%assign _modelSS = ""
+
+tau = 0.0;
+if (!(n <= 0)) {
+%if SLibCG_FcnCallArgAccessed(0,19,0,0)
+%<SLibCG_AccessArg(0 ,19, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,19,0,1)
+%<SLibCG_AccessArg(0 ,19, 2)>
+%endif
+
+    xnorm = %<(SLibCGCallSubFcn("parallelizationTest_xnrm2_e", ["n - 1", "x"], 0, 19, 0))>;
+    if (xnorm != 0.0) {
+%if SLibCG_FcnCallArgAccessed(0,19,1,0)
+%<SLibCG_AccessArg(0 ,19, 1)>
+%endif
+
+        xnorm = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["*alpha1", "xnorm"], 0, 19, 1))>;
+        if (*alpha1 >= 0.0) {
+            xnorm = -xnorm;
+        }
+        if (fabs(xnorm) < 1.0020841800044864E-292) {
+            knt = 0;
+            do {
+                knt++;
+                for (c_k = 1; c_k + 1 <= n; c_k++) {
+                    x[c_k] *= 9.9792015476736E+291;
+                }
+                xnorm *= 9.9792015476736E+291;
+                *alpha1 *= 9.9792015476736E+291;
+            } while (!(fabs(xnorm) >= 1.0020841800044864E-292));
+%if SLibCG_FcnCallArgAccessed(0,19,2,0)
+%<SLibCG_AccessArg(0 ,19, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,19,2,1)
+%<SLibCG_AccessArg(0 ,19, 2)>
+%endif
+
+%if SLibCG_FcnCallArgAccessed(0,19,3,0)
+%<SLibCG_AccessArg(0 ,19, 1)>
+%endif
+
+            xnorm = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["*alpha1", "%<(SLibCGCallSubFcn("parallelizationTest_xnrm2_e", ["n - 1", "x"], 0, 19, 2))>"], 0, 19, 3))>;
+            if (*alpha1 >= 0.0) {
+                xnorm = -xnorm;
+            }
+            tau = (xnorm - *alpha1) / xnorm;
+            *alpha1 = 1.0 / (*alpha1 - xnorm);
+            for (c_k = 1; c_k + 1 <= n; c_k++) {
+                x[c_k] *= *alpha1;
+            }
+            for (c_k = 1; c_k <= knt; c_k++) {
+                xnorm *= 1.0020841800044864E-292;
+            }
+            *alpha1 = xnorm;
+        } else {
+            tau = (xnorm - *alpha1) / xnorm;
+            *alpha1 = 1.0 / (*alpha1 - xnorm);
+            for (knt = 1; knt + 1 <= n; knt++) {
+                x[knt] *= *alpha1;
+            }
+            *alpha1 = xnorm;
+        }
+    }
+}
+return tau;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static real_T parallelizationTest_xzlarfg(\
+%assign comma = ""
+%<comma>int32_T n\
+%assign comma = ", "
+%<comma>real_T *alpha1\
+%assign comma = ", "
+%<comma>real_T x[3]\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 19, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_xdlanv2_Fcn20(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T temp;
+real_T p;
+real_T bcmax;
+real_T bcmis;
+real_T scale;
+real_T z;
+int32_T b_0;
+int32_T c_0;
+%assign _modelSS = ""
+
+if (*c == 0.0) {
+    *cs = 1.0;
+    *sn = 0.0;
+} else if (*b == 0.0) {
+    *cs = 0.0;
+    *sn = 1.0;
+    temp = *d;
+    *d = *a;
+    *a = temp;
+    *b = -*c;
+    *c = 0.0;
+} else if ((*a - *d == 0.0) && ((*b < 0.0) != (*c < 0.0))) {
+    *cs = 1.0;
+    *sn = 0.0;
+} else {
+    temp = *a - *d;
+    p = 0.5 * temp;
+    bcmax = fmax(fabs(*b), fabs(*c));
+    if (!(*b < 0.0)) {
+        b_0 = 1;
+    } else {
+        b_0 = -1;
+    }
+    if (!(*c < 0.0)) {
+        c_0 = 1;
+    } else {
+        c_0 = -1;
+    }
+    bcmis = fmin(fabs(*b), fabs(*c)) * (real_T)b_0 * (real_T)c_0;
+    scale = fmax(fabs(p), bcmax);
+    z = p / scale * p + bcmax / scale * bcmis;
+    if (z >= 8.8817841970012523E-16) {
+        if (!(p < 0.0)) {
+            temp = sqrt(scale) * sqrt(z);
+        } else {
+            temp = -(sqrt(scale) * sqrt(z));
+        }
+        z = p + temp;
+        *a = *d + z;
+        *d -= bcmax / z * bcmis;
+%if SLibCG_FcnCallArgAccessed(0,20,1,0)
+%<SLibCG_AccessArg(0 ,20, 2)>
+%endif
+
+        bcmax = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["*c", "z"], 0, 20, 1))>;
+        *cs = z / bcmax;
+        *sn = *c / bcmax;
+        *b -= *c;
+        *c = 0.0;
+    } else {
+        bcmis = *b + *c;
+        bcmax = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["bcmis", "temp"], 0, 20, 0))>;
+        *cs = sqrt((fabs(bcmis) / bcmax + 1.0) * 0.5);
+        if (!(bcmis < 0.0)) {
+            b_0 = 1;
+        } else {
+            b_0 = -1;
+        }
+        *sn = -(p / (bcmax * *cs)) * (real_T)b_0;
+        temp = *a * *cs + *b * *sn;
+        p = -*a * *sn + *b * *cs;
+        bcmax = *c * *cs + *d * *sn;
+        bcmis = -*c * *sn + *d * *cs;
+        *b = p * *cs + bcmis * *sn;
+        *c = -temp * *sn + bcmax * *cs;
+        temp = ((temp * *cs + bcmax * *sn) + (-p * *sn + bcmis * *cs)) * 0.5;
+        *a = temp;
+        *d = temp;
+        if (*c != 0.0) {
+            if (*b != 0.0) {
+                if ((*b < 0.0) == (*c < 0.0)) {
+                    z = sqrt(fabs(*b));
+                    bcmis = sqrt(fabs(*c));
+                    p = z * bcmis;
+                    if (*c < 0.0) {
+                        p = -p;
+                    }
+                    bcmax = 1.0 / sqrt(fabs(*b + *c));
+                    *a = temp + p;
+                    *d = temp - p;
+                    *b -= *c;
+                    *c = 0.0;
+                    p = z * bcmax;
+                    bcmax *= bcmis;
+                    temp = *cs * p - *sn * bcmax;
+                    *sn = *cs * bcmax + *sn * p;
+                    *cs = temp;
+                }
+            } else {
+                *b = -*c;
+                *c = 0.0;
+                temp = *cs;
+                *cs = -*sn;
+                *sn = temp;
+            }
+        }
+    }
+}
+*rt1r = *a;
+*rt2r = *d;
+if (*c == 0.0) {
+    *rt1i = 0.0;
+    *rt2i = 0.0;
+} else {
+    *rt1i = sqrt(fabs(*b)) * sqrt(fabs(*c));
+    *rt2i = -*rt1i;
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_xdlanv2(\
+%assign comma = ""
+%<comma>real_T *a\
+%assign comma = ", "
+%<comma>real_T *b\
+%assign comma = ", "
+%<comma>real_T *c\
+%assign comma = ", "
+%<comma>real_T *d\
+%assign comma = ", "
+%<comma>real_T *rt1r\
+%assign comma = ", "
+%<comma>real_T *rt1i\
+%assign comma = ", "
+%<comma>real_T *rt2r\
+%assign comma = ", "
+%<comma>real_T *rt2i\
+%assign comma = ", "
+%<comma>real_T *cs\
+%assign comma = ", "
+%<comma>real_T *sn\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 20, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_eml_dlahqr_Fcn21(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T info;
+int32_T n;
+int32_T ldh;
+real_T v[3];
+real_T SMLNUM;
+int32_T i;
+int32_T L;
+boolean_T goto150;
+int32_T k;
+real_T tst;
+real_T htmp1;
+real_T ab;
+real_T ba;
+real_T aa;
+real_T h12;
+int32_T m;
+int32_T nr;
+int32_T hoffset;
+real_T unusedU2;
+real_T unusedU3;
+real_T b_v[3];
+int32_T b_k;
+int32_T b_j;
+real_T b_y;
+real_T c_y;
+int32_T b_ix;
+boolean_T exitg1;
+boolean_T exitg2;
+boolean_T exitg3;
+n = h->size[0];
+ldh = h->size[0];
+info = 0;
+if (!((n == 0) || (1 == n))) {
+    for (i = 0; i + 1 <= n - 3; i++) {
+        h->data[(i + h->size[0] * i) + 2] = 0.0;
+        h->data[(i + h->size[0] * i) + 3] = 0.0;
+    }
+    if (1 <= n - 2) {
+        h->data[(n + h->size[0] * (n - 3)) - 1] = 0.0;
+    }
+    SMLNUM = (real_T)n / 2.2204460492503131E-16 * 2.2250738585072014E-308;
+    i = n - 1;
+    exitg1 = false;
+    while ((!exitg1) && (i + 1 >= 1)) {
+        L = 1;
+        goto150 = false;
+        b_ix = 0;
+        exitg2 = false;
+        while ((!exitg2) && (b_ix < 31)) {
+            k = i;
+            exitg3 = false;
+            while ((!exitg3) && ((k + 1 > L) && (!(fabs(h->data[(k - 1) * h->size[0] + k]) <= SMLNUM)))) {
+                tst = fabs(h->data[((k - 1) * h->size[0] + k) - 1]) + fabs(h->data[h->size[0] * k + k]);
+                if (tst == 0.0) {
+                    if (k - 1 >= 1) {
+                        tst = fabs(h->data[((k - 2) * h->size[0] + k) - 1]);
+                    }
+                    if (k + 2 <= n) {
+                        tst += fabs(h->data[(h->size[0] * k + k) + 1]);
+                    }
+                }
+                if (fabs(h->data[(k - 1) * h->size[0] + k]) <= 2.2204460492503131E-16 * tst) {
+                    htmp1 = fabs(h->data[(k - 1) * h->size[0] + k]);
+                    tst = fabs(h->data[(h->size[0] * k + k) - 1]);
+                    if (htmp1 > tst) {
+                        ab = htmp1;
+                        ba = tst;
+                    } else {
+                        ab = tst;
+                        ba = htmp1;
+                    }
+                    htmp1 = fabs(h->data[h->size[0] * k + k]);
+                    tst = fabs(h->data[((k - 1) * h->size[0] + k) - 1] - h->data[h->size[0] * k + k]);
+                    if (htmp1 > tst) {
+                        aa = htmp1;
+                        htmp1 = tst;
+                    } else {
+                        aa = tst;
+                    }
+                    tst = aa + ab;
+                    if (ab / tst * ba <= fmax(SMLNUM, aa / tst * htmp1 * 2.2204460492503131E-16)) {
+                        exitg3 = true;
+                    } else {
+                        k--;
+                    }
+                } else {
+                    k--;
+                }
+            }
+            L = k + 1;
+            if (k + 1 > 1) {
+                h->data[k + h->size[0] * (k - 1)] = 0.0;
+            }
+            if (k + 1 >= i) {
+                goto150 = true;
+                exitg2 = true;
+            } else {
+                if (b_ix == 10) {
+                    tst = fabs(h->data[((k + 1) * h->size[0] + k) + 2]) + fabs(h->data[(h->size[0] * k + k) + 1]);
+                    htmp1 = h->data[h->size[0] * k + k] + 0.75 * tst;
+                    h12 = -0.4375 * tst;
+                    aa = tst;
+                    ba = htmp1;
+                } else if (b_ix == 20) {
+                    tst = fabs(h->data[((i - 2) * h->size[0] + i) - 1]) + fabs(h->data[(i - 1) * h->size[0] + i]);
+                    htmp1 = h->data[h->size[0] * i + i] + 0.75 * tst;
+                    h12 = -0.4375 * tst;
+                    aa = tst;
+                    ba = htmp1;
+                } else {
+                    htmp1 = h->data[((i - 1) * h->size[0] + i) - 1];
+                    aa = h->data[(i - 1) * h->size[0] + i];
+                    h12 = h->data[(h->size[0] * i + i) - 1];
+                    ba = h->data[h->size[0] * i + i];
+                }
+                tst = ((fabs(htmp1) + fabs(h12)) + fabs(aa)) + fabs(ba);
+                if (tst == 0.0) {
+                    htmp1 = 0.0;
+                    ba = 0.0;
+                    ab = 0.0;
+                    aa = 0.0;
+                } else {
+                    htmp1 /= tst;
+                    aa /= tst;
+                    h12 /= tst;
+                    ba /= tst;
+                    ab = (htmp1 + ba) / 2.0;
+                    htmp1 = (htmp1 - ab) * (ba - ab) - h12 * aa;
+                    aa = sqrt(fabs(htmp1));
+                    if (htmp1 >= 0.0) {
+                        htmp1 = ab * tst;
+                        ab = htmp1;
+                        ba = aa * tst;
+                        aa = -ba;
+                    } else {
+                        htmp1 = ab + aa;
+                        ab -= aa;
+                        if (fabs(htmp1 - ba) <= fabs(ab - ba)) {
+                            htmp1 *= tst;
+                            ab = htmp1;
+                        } else {
+                            ab *= tst;
+                            htmp1 = ab;
+                        }
+                        ba = 0.0;
+                        aa = 0.0;
+                    }
+                }
+                m = i - 1;
+                exitg3 = false;
+                while ((!exitg3) && (m >= k + 1)) {
+                    tst = (fabs(h->data[((m - 1) * h->size[0] + m) - 1] - ab) + fabs(aa)) + fabs(h->data[(m - 1) * h->size[0] + m]);
+                    h12 = h->data[(m - 1) * h->size[0] + m] / tst;
+                    v[0] = ((h->data[((m - 1) * h->size[0] + m) - 1] - ab) / tst * (h->data[((m - 1) * h->size[0] + m) - 1] - htmp1) + h->data[(h->size[0] * m + m) - 1] * h12) - aa / tst * ba;
+                    v[1] = (((h->data[((m - 1) * h->size[0] + m) - 1] + h->data[h->size[0] * m + m]) - htmp1) - ab) * h12;
+                    v[2] = h->data[(h->size[0] * m + m) + 1] * h12;
+                    tst = (fabs(v[0]) + fabs(v[1])) + fabs(v[2]);
+                    h12 = v[0] / tst;
+                    v[0] /= tst;
+                    b_y = v[1] / tst;
+                    v[1] /= tst;
+                    c_y = v[2] / tst;
+                    v[2] /= tst;
+                    if ((k + 1 == m) || (fabs(h->data[((m - 2) * h->size[0] + m) - 1]) * (fabs(b_y) + fabs(c_y)) <= ((fabs(h->data[((m - 2) * h->size[0] + m) - 2]) + fabs(h->data[((m - 1) * h->size[0] + m) - 1])) + fabs(h->data[h->size[0] * m + m])) * (2.2204460492503131E-16 * fabs(h12)))) {
+                        exitg3 = true;
+                    } else {
+                        m--;
+                    }
+                }
+                for (b_k = m; b_k <= i; b_k++) {
+                    nr = (i - b_k) + 2;
+                    if (3 < nr) {
+                        nr = 3;
+                    }
+                    if (b_k > m) {
+                        hoffset = (b_k - 2) * ldh + b_k;
+                        for (b_j = -1; b_j + 2 <= nr; b_j++) {
+                            v[b_j + 1] = h->data[b_j + hoffset];
+                        }
+                    }
+                    htmp1 = v[0];
+                    b_v[0] = v[0];
+                    b_v[1] = v[1];
+                    b_v[2] = v[2];
+                    tst = %<(SLibCGCallSubFcn("parallelizationTest_xzlarfg", ["nr", "&htmp1", "b_v"], 0, 21, 0))>;
+                    v[1] = b_v[1];
+                    v[2] = b_v[2];
+                    v[0] = htmp1;
+                    if (b_k > m) {
+                        h->data[(b_k + h->size[0] * (b_k - 2)) - 1] = htmp1;
+                        h->data[b_k + h->size[0] * (b_k - 2)] = 0.0;
+                        if (b_k < i) {
+                            h->data[(b_k + h->size[0] * (b_k - 2)) + 1] = 0.0;
+                        }
+                    } else {
+                        if (m > k + 1) {
+                            h->data[(b_k + h->size[0] * (b_k - 2)) - 1] = h->data[((b_k - 2) * h->size[0] + b_k) - 1] * (1.0 - tst);
+                        }
+                    }
+                    htmp1 = b_v[1];
+                    ab = tst * b_v[1];
+                    if (nr == 3) {
+                        aa = b_v[2];
+                        h12 = tst * b_v[2];
+                        for (nr = b_k - 1; nr + 1 <= n; nr++) {
+                            ba = (h->data[(h->size[0] * nr + b_k) - 1] + h->data[h->size[0] * nr + b_k] * htmp1) + h->data[(h->size[0] * nr + b_k) + 1] * aa;
+                            h->data[(b_k + h->size[0] * nr) - 1] -= ba * tst;
+                            h->data[b_k + h->size[0] * nr] -= ba * ab;
+                            h->data[(b_k + h->size[0] * nr) + 1] -= ba * h12;
+                        }
+                        hoffset = b_k + 3;
+                        nr = i + 1;
+                        if (hoffset < nr) {
+                            nr = hoffset;
+                        }
+                        for (hoffset = 0; hoffset + 1 <= nr; hoffset++) {
+                            ba = (h->data[(b_k - 1) * h->size[0] + hoffset] + h->data[h->size[0] * b_k + hoffset] * htmp1) + h->data[(b_k + 1) * h->size[0] + hoffset] * aa;
+                            h->data[hoffset + h->size[0] * (b_k - 1)] = h->data[(b_k - 1) * h->size[0] + hoffset] - ba * tst;
+                            h->data[hoffset + h->size[0] * b_k] -= ba * ab;
+                            h->data[hoffset + h->size[0] * (b_k + 1)] = h->data[(b_k + 1) * h->size[0] + hoffset] - ba * h12;
+                        }
+                    } else {
+                        if (nr == 2) {
+                            for (nr = b_k - 1; nr + 1 <= n; nr++) {
+                                ba = h->data[(h->size[0] * nr + b_k) - 1] + h->data[h->size[0] * nr + b_k] * htmp1;
+                                h->data[(b_k + h->size[0] * nr) - 1] -= ba * tst;
+                                h->data[b_k + h->size[0] * nr] -= ba * ab;
+                            }
+                            for (nr = 0; nr + 1 <= i + 1; nr++) {
+                                ba = h->data[(b_k - 1) * h->size[0] + nr] + h->data[h->size[0] * b_k + nr] * htmp1;
+                                h->data[nr + h->size[0] * (b_k - 1)] = h->data[(b_k - 1) * h->size[0] + nr] - ba * tst;
+                                h->data[nr + h->size[0] * b_k] -= ba * ab;
+                            }
+                        }
+                    }
+                }
+                b_ix++;
+            }
+        }
+        if (!goto150) {
+            info = i + 1;
+            exitg1 = true;
+        } else {
+            if (!((i + 1 == L) || (!(L == i)))) {
+                ab = h->data[((i - 1) * h->size[0] + i) - 1];
+                ba = h->data[(h->size[0] * i + i) - 1];
+                aa = h->data[(i - 1) * h->size[0] + i];
+                h12 = h->data[h->size[0] * i + i];
+                %<(SLibCGCallSubFcn("parallelizationTest_xdlanv2", ["&ab", "&ba", "&aa", "&h12", "&b_y", "&c_y", "&unusedU2", "&unusedU3", "&tst", "&htmp1"], 0, 21, 1))>;
+                h->data[(i + h->size[0] * (i - 1)) - 1] = ab;
+                h->data[(i + h->size[0] * i) - 1] = ba;
+                h->data[i + h->size[0] * (i - 1)] = aa;
+                h->data[i + h->size[0] * i] = h12;
+                if (n > i + 1) {
+                    b_ix = (n - i) - 1;
+                    if (!(b_ix < 1)) {
+                        k = ((i + 1) * ldh + i) - 1;
+                        m = (i + 1) * ldh + i;
+                        for (b_k = 1; b_k <= b_ix; b_k++) {
+                            ab = tst * h->data[k] + htmp1 * h->data[m];
+                            h->data[m] = tst * h->data[m] - htmp1 * h->data[k];
+                            h->data[k] = ab;
+                            m += ldh;
+                            k += ldh;
+                        }
+                    }
+                }
+                if (!(i - 1 < 1)) {
+                    b_ix = (i - 1) * ldh;
+                    k = i * ldh;
+                    for (m = 1; m < i; m++) {
+                        ab = tst * h->data[b_ix] + htmp1 * h->data[k];
+                        h->data[k] = tst * h->data[k] - htmp1 * h->data[b_ix];
+                        h->data[b_ix] = ab;
+                        k++;
+                        b_ix++;
+                    }
+                }
+            }
+            i = L - 2;
+        }
+    }
+}
+return info;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static int32_T parallelizationTest_eml_dlahqr(\
+%assign comma = ""
+%<comma>emxArray_real_T_parallelizati_T *h\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 21, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function parallelizationTest_eig_Fcn22(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+emxArray_creal_T_parallelizat_T *beta1;
+emxArray_creal_T_parallelizat_T *T;
+boolean_T b_p;
+emxArray_real_T_parallelizati_T *b_A;
+emxArray_real_T_parallelizati_T *h;
+int32_T istart;
+int32_T jend;
+int32_T b_j;
+int32_T b_i;
+real_T r;
+real_T rt2r;
+real_T rt2i;
+real_T cs;
+real_T sn;
+real_T bim;
+real_T mu1_re;
+real_T mu1_im;
+real_T t1_re;
+real_T t1_im;
+int32_T exitg1;
+boolean_T exitg2;
+%assign _modelSS = ""
+
+if ((A->size[0] == 0) || (A->size[1] == 0)) {
+    istart = V->size[0];
+    V->size[0] = A->size[0];
+%if SLibCG_FcnCallArgAccessed(0,22,15,0)
+%<SLibCG_AccessArg(0 ,22, 1)>
+%endif
+
+    %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)V", "istart", "sizeof(creal_T)"], 0, 22, 15))>;
+    jend = A->size[0];
+    for (istart = 0; istart < jend; istart++) {
+        V->data[istart].re = 0.0;
+        V->data[istart].im = 0.0;
+    }
+} else if ((A->size[0] == 1) && (A->size[1] == 1)) {
+    istart = V->size[0];
+    V->size[0] = 1;
+%if SLibCG_FcnCallArgAccessed(0,22,14,0)
+%<SLibCG_AccessArg(0 ,22, 1)>
+%endif
+
+    %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)V", "istart", "sizeof(creal_T)"], 0, 22, 14))>;
+    V->data[0].re = A->data[0];
+    V->data[0].im = 0.0;
+} else {
+    b_p = (A->size[0] == A->size[1]);
+    if (b_p) {
+        istart = 0;
+        exitg2 = false;
+        while ((!exitg2) && (istart <= A->size[1] - 1)) {
+            jend = 0;
+            do {
+                exitg1 = 0;
+                if (jend <= istart) {
+                    if (!(A->data[A->size[0] * istart + jend] == A->data[A->size[0] * jend + istart])) {
+                        b_p = false;
+                        exitg1 = 1;
+                    } else {
+                        jend++;
+                    }
+                } else {
+                    istart++;
+                    exitg1 = 2;
+                }
+            } while (exitg1 == 0);
+            if (exitg1 == 1) {
+                exitg2 = true;
+            }
+        }
+    }
+    if (b_p) {
+        %<(SLibCGCallSubFcn("parallelizationT_emxInit_real_T", ["&b_A", "2"], 0, 22, 5))>;
+        istart = b_A->size[0] * b_A->size[1];
+        b_A->size[0] = A->size[0];
+        b_A->size[1] = A->size[1];
+        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)b_A", "istart", "sizeof(real_T)"], 0, 22, 11))>;
+        jend = A->size[0] * A->size[1];
+        for (istart = 0; istart < jend; istart++) {
+            b_A->data[istart] = A->data[istart];
+        }
+        %<(SLibCGCallSubFcn("parallelizationT_emxInit_real_T", ["&h", "2"], 0, 22, 4))>;
+        %<(SLibCGCallSubFcn("parallelizationTest_xgehrd", ["b_A"], 0, 22, 18))>;
+        %<(SLibCGCallSubFcn("parallelizationTest_eml_dlahqr", ["b_A"], 0, 22, 17))>;
+        istart = h->size[0] * h->size[1];
+        h->size[0] = b_A->size[0];
+        h->size[1] = b_A->size[1];
+        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)h", "istart", "sizeof(real_T)"], 0, 22, 10))>;
+        jend = b_A->size[0] * b_A->size[1];
+        for (istart = 0; istart < jend; istart++) {
+            h->data[istart] = b_A->data[istart];
+        }
+        if ((!((b_A->size[0] == 0) || (b_A->size[1] == 0))) && (!(3 >= b_A->size[0]))) {
+            istart = 4;
+            if (b_A->size[0] - 4 < b_A->size[1] - 1) {
+                jend = b_A->size[0] - 3;
+            } else {
+                jend = b_A->size[1];
+            }
+            for (b_j = 1; b_j <= jend; b_j++) {
+                for (b_i = istart; b_i <= b_A->size[0]; b_i++) {
+                    h->data[(b_i + h->size[0] * (b_j - 1)) - 1] = 0.0;
+                }
+                if (b_j >= 1) {
+                    istart++;
+                }
+            }
+        }
+        %<(SLibCGCallSubFcn("parallelizationT_emxFree_real_T", ["&b_A"], 0, 22, 1))>;
+        %<(SLibCGCallSubFcn("parallelizatio_emxInit_creal_T1", ["&T", "2"], 0, 22, 6))>;
+        istart = T->size[0] * T->size[1];
+        T->size[0] = h->size[0];
+        T->size[1] = h->size[1];
+        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)T", "istart", "sizeof(creal_T)"], 0, 22, 9))>;
+        jend = h->size[0] * h->size[1];
+        for (istart = 0; istart < jend; istart++) {
+            T->data[istart].re = h->data[istart];
+            T->data[istart].im = 0.0;
+        }
+        istart = h->size[0];
+        if (h->size[1] < h->size[0]) {
+            istart = h->size[1];
+        }
+        if (istart != 0) {
+            for (jend = istart - 1; jend + 1 >= 2; jend--) {
+                if (h->data[(jend - 1) * h->size[0] + jend] != 0.0) {
+                    r = h->data[((jend - 1) * h->size[0] + jend) - 1];
+                    t1_re = h->data[(h->size[0] * jend + jend) - 1];
+                    t1_im = h->data[(jend - 1) * h->size[0] + jend];
+                    mu1_re = h->data[h->size[0] * jend + jend];
+                    %<(SLibCGCallSubFcn("parallelizationTest_xdlanv2", ["&r", "&t1_re", "&t1_im", "&mu1_re", "&bim", "&mu1_im", "&rt2r", "&rt2i", "&cs", "&sn"], 0, 22, 16))>;
+                    mu1_re = bim - h->data[h->size[0] * jend + jend];
+                    r = %<(SLibCGCallSubFcn("rt_hypotd_snf", ["%<(SLibCGCallSubFcn("rt_hypotd_snf", ["mu1_re", "mu1_im"], 0, 22, 19))>", "h->data[(jend - 1) * h->size[0] + jend]"], 0, 22, 20))>;
+                    if (mu1_im == 0.0) {
+                        mu1_re /= r;
+                        mu1_im = 0.0;
+                    } else if (mu1_re == 0.0) {
+                        mu1_re = 0.0;
+                        mu1_im /= r;
+                    } else {
+                        mu1_re /= r;
+                        mu1_im /= r;
+                    }
+                    r = h->data[(jend - 1) * h->size[0] + jend] / r;
+                    for (b_j = jend - 1; b_j + 1 <= istart; b_j++) {
+                        t1_re = T->data[(T->size[0] * b_j + jend) - 1].re;
+                        t1_im = T->data[(T->size[0] * b_j + jend) - 1].im;
+                        bim = T->data[(T->size[0] * b_j + jend) - 1].re;
+                        rt2r = T->data[(T->size[0] * b_j + jend) - 1].im;
+                        rt2i = T->data[(T->size[0] * b_j + jend) - 1].im;
+                        cs = T->data[(T->size[0] * b_j + jend) - 1].re;
+                        T->data[(jend + T->size[0] * b_j) - 1].re = T->data[T->size[0] * b_j + jend].re * r + (mu1_re * bim + mu1_im * rt2r);
+                        T->data[(jend + T->size[0] * b_j) - 1].im = T->data[T->size[0] * b_j + jend].im * r + (mu1_re * rt2i - mu1_im * cs);
+                        rt2i = T->data[T->size[0] * b_j + jend].re * mu1_re - T->data[T->size[0] * b_j + jend].im * mu1_im;
+                        cs = T->data[T->size[0] * b_j + jend].im * mu1_re + T->data[T->size[0] * b_j + jend].re * mu1_im;
+                        T->data[jend + T->size[0] * b_j].re = rt2i - r * t1_re;
+                        T->data[jend + T->size[0] * b_j].im = cs - r * t1_im;
+                    }
+                    for (b_j = 0; b_j + 1 <= jend + 1; b_j++) {
+                        t1_re = T->data[(jend - 1) * T->size[0] + b_j].re;
+                        t1_im = T->data[(jend - 1) * T->size[0] + b_j].im;
+                        rt2i = T->data[(jend - 1) * T->size[0] + b_j].re * mu1_re - T->data[(jend - 1) * T->size[0] + b_j].im * mu1_im;
+                        cs = T->data[(jend - 1) * T->size[0] + b_j].im * mu1_re + T->data[(jend - 1) * T->size[0] + b_j].re * mu1_im;
+                        bim = T->data[T->size[0] * jend + b_j].re;
+                        rt2r = T->data[T->size[0] * jend + b_j].im;
+                        T->data[b_j + T->size[0] * (jend - 1)].re = r * bim + rt2i;
+                        T->data[b_j + T->size[0] * (jend - 1)].im = r * rt2r + cs;
+                        bim = T->data[T->size[0] * jend + b_j].re;
+                        rt2r = T->data[T->size[0] * jend + b_j].im;
+                        rt2i = T->data[T->size[0] * jend + b_j].im;
+                        cs = T->data[T->size[0] * jend + b_j].re;
+                        T->data[b_j + T->size[0] * jend].re = (mu1_re * bim + mu1_im * rt2r) - r * t1_re;
+                        T->data[b_j + T->size[0] * jend].im = (mu1_re * rt2i - mu1_im * cs) - r * t1_im;
+                    }
+                    T->data[jend + T->size[0] * (jend - 1)].re = 0.0;
+                    T->data[jend + T->size[0] * (jend - 1)].im = 0.0;
+                }
+            }
+        }
+        %<(SLibCGCallSubFcn("parallelizationT_emxFree_real_T", ["&h"], 0, 22, 0))>;
+        istart = V->size[0];
+        V->size[0] = T->size[0];
+%if SLibCG_FcnCallArgAccessed(0,22,8,0)
+%<SLibCG_AccessArg(0 ,22, 1)>
+%endif
+
+        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)V", "istart", "sizeof(creal_T)"], 0, 22, 8))>;
+        for (istart = 0; istart + 1 <= T->size[0]; istart++) {
+            V->data[istart] = T->data[T->size[0] * istart + istart];
+        }
+        %<(SLibCGCallSubFcn("parallelization_emxFree_creal_T", ["&T"], 0, 22, 2))>;
+    } else {
+        %<(SLibCGCallSubFcn("parallelization_emxInit_creal_T", ["&beta1", "1"], 0, 22, 7))>;
+%if SLibCG_FcnCallArgAccessed(0,22,13,0)
+%<SLibCG_AccessArg(0 ,22, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(0,22,13,2)
+%<SLibCG_AccessArg(0 ,22, 1)>
+%endif
+
+        %<(SLibCGCallSubFcn("parallelizationTest_xzgeev", ["A", "&istart", "V", "beta1"], 0, 22, 13))>;
+        istart = V->size[0];
+%if SLibCG_FcnCallArgAccessed(0,22,12,0)
+%<SLibCG_AccessArg(0 ,22, 1)>
+%endif
+
+        %<(SLibCGCallSubFcn("parallelizati_emxEnsureCapacity", ["(emxArray__common_parallelizat_T *)V", "istart", "sizeof(creal_T)"], 0, 22, 12))>;
+        jend = V->size[0];
+        for (istart = 0; istart < jend; istart++) {
+            r = V->data[istart].re;
+            mu1_im = V->data[istart].im;
+            t1_im = beta1->data[istart].re;
+            mu1_re = beta1->data[istart].im;
+            if (mu1_re == 0.0) {
+                if (mu1_im == 0.0) {
+                    V->data[istart].re = r / t1_im;
+                    V->data[istart].im = 0.0;
+                } else if (r == 0.0) {
+                    V->data[istart].re = 0.0;
+                    V->data[istart].im = mu1_im / t1_im;
+                } else {
+                    V->data[istart].re = r / t1_im;
+                    V->data[istart].im = mu1_im / t1_im;
+                }
+            } else if (t1_im == 0.0) {
+                if (r == 0.0) {
+                    V->data[istart].re = mu1_im / mu1_re;
+                    V->data[istart].im = 0.0;
+                } else if (mu1_im == 0.0) {
+                    V->data[istart].re = 0.0;
+                    V->data[istart].im = -(r / mu1_re);
+                } else {
+                    V->data[istart].re = mu1_im / mu1_re;
+                    V->data[istart].im = -(r / mu1_re);
+                }
+            } else {
+                t1_re = fabs(t1_im);
+                bim = fabs(mu1_re);
+                if (t1_re > bim) {
+                    t1_re = mu1_re / t1_im;
+                    mu1_re = t1_re * mu1_re + t1_im;
+                    V->data[istart].re = (t1_re * mu1_im + r) / mu1_re;
+                    V->data[istart].im = (mu1_im - t1_re * r) / mu1_re;
+                } else if (bim == t1_re) {
+                    t1_im = t1_im > 0.0 ? 0.5 : -0.5;
+                    mu1_re = mu1_re > 0.0 ? 0.5 : -0.5;
+                    V->data[istart].re = (r * t1_im + mu1_im * mu1_re) / t1_re;
+                    V->data[istart].im = (mu1_im * t1_im - r * mu1_re) / t1_re;
+                } else {
+                    t1_re = t1_im / mu1_re;
+                    mu1_re += t1_re * t1_im;
+                    V->data[istart].re = (t1_re * r + mu1_im) / mu1_re;
+                    V->data[istart].im = (t1_re * mu1_im - r) / mu1_re;
+                }
+            }
+        }
+        %<(SLibCGCallSubFcn("parallelization_emxFree_creal_T", ["&beta1"], 0, 22, 3))>;
+    }
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void parallelizationTest_eig(\
+%assign comma = ""
+%<comma>const emxArray_real_T_parallelizati_T *A\
+%assign comma = ", "
+%<comma>emxArray_creal_T_parallelizat_T *V\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 22, fcnProtoType)>
+%return fcnBuff
+%endfunction
+

@@ -1,68 +1,44 @@
-
-
-    /*
-  * parallelizationTest.h
-  *
-    * Code generation for model "parallelizationTest".
-  *
-  * Model version              : 1.9
-  * Simulink Coder version : 8.12 (R2017a) 16-Feb-2017
-  * C source code generated on : Tue Sep 08 12:15:36 2020
- * 
+/*
+ * parallelizationTest.h
+ *
+ * Code generation for model "parallelizationTest".
+ *
+ * Model version              : 1.9
+ * Simulink Coder version : 8.12 (R2017a) 16-Feb-2017
+ * C source code generated on : Tue Sep 08 12:15:36 2020
+ *
  * Target selection: NIVeriStand_Linux_64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
  * Embedded hardware selection: Generic->Custom
  * Code generation objectives: Unspecified
  * Validation result: Not run
-  */
+ */
 
-
-  #ifndef RTW_HEADER_parallelizationTest_h_
-  #define RTW_HEADER_parallelizationTest_h_
-  
-    
-
-  
+#ifndef RTW_HEADER_parallelizationTest_h_
+#define RTW_HEADER_parallelizationTest_h_
 #include <math.h>
-
 #include <stdlib.h>
-
 #include <string.h>
-
 #include <stddef.h>
-    #ifndef parallelizationTest_COMMON_INCLUDES_
-  # define parallelizationTest_COMMON_INCLUDES_
-    #include "rtwtypes.h"
-    #include "zero_crossing_types.h"
-      #include "simstruc.h"
-      #include "fixedpoint.h"
-      #include "rt_logging.h"
-  #endif /* parallelizationTest_COMMON_INCLUDES_ */
-  
+#ifndef parallelizationTest_COMMON_INCLUDES_
+# define parallelizationTest_COMMON_INCLUDES_
+#include "rtwtypes.h"
+#include "zero_crossing_types.h"
+#include "simstruc.h"
+#include "fixedpoint.h"
+#include "rt_logging.h"
+#endif                                 /* parallelizationTest_COMMON_INCLUDES_ */
 
-    #include "parallelizationTest_types.h"    
-        
-    /* Shared type includes */
-          #include "multiword_types.h"
+#include "parallelizationTest_types.h"
 
-    
-
-  
-  
+/* Shared type includes */
+#include "multiword_types.h"
 #include "rtGetNaN.h"
-
 #include "rt_nonfinite.h"
-
 #include "rt_defines.h"
 
-
-  
-
-  
-
-  
-    /* Macros for accessing real-time model data structure */
-        #ifndef rtmGetBlkStateChangeFlag
+/* Macros for accessing real-time model data structure */
+#ifndef rtmGetBlkStateChangeFlag
 # define rtmGetBlkStateChangeFlag(rtm) ((rtm)->blkStateChange)
 #endif
 
@@ -71,31 +47,31 @@
 #endif
 
 #ifndef rtmGetBlockIO
-# define rtmGetBlockIO(rtm) ((rtm)->blockIO)
+# define rtmGetBlockIO(rtm)            ((rtm)->blockIO)
 #endif
 
 #ifndef rtmSetBlockIO
-# define rtmSetBlockIO(rtm, val) ((rtm)->blockIO = (val))
+# define rtmSetBlockIO(rtm, val)       ((rtm)->blockIO = (val))
 #endif
 
 #ifndef rtmGetChecksums
-# define rtmGetChecksums(rtm) ((rtm)->Sizes.checksums)
+# define rtmGetChecksums(rtm)          ((rtm)->Sizes.checksums)
 #endif
 
 #ifndef rtmSetChecksums
-# define rtmSetChecksums(rtm, val) ((rtm)->Sizes.checksums = (val))
+# define rtmSetChecksums(rtm, val)     ((rtm)->Sizes.checksums = (val))
 #endif
 
 #ifndef rtmGetConstBlockIO
-# define rtmGetConstBlockIO(rtm) ((rtm)->constBlockIO)
+# define rtmGetConstBlockIO(rtm)       ((rtm)->constBlockIO)
 #endif
 
 #ifndef rtmSetConstBlockIO
-# define rtmSetConstBlockIO(rtm, val) ((rtm)->constBlockIO = (val))
+# define rtmSetConstBlockIO(rtm, val)  ((rtm)->constBlockIO = (val))
 #endif
 
 #ifndef rtmGetContStateDisabled
-# define rtmGetContStateDisabled(rtm) ((rtm)->contStateDisabled)
+# define rtmGetContStateDisabled(rtm)  ((rtm)->contStateDisabled)
 #endif
 
 #ifndef rtmSetContStateDisabled
@@ -103,27 +79,27 @@
 #endif
 
 #ifndef rtmGetContStates
-# define rtmGetContStates(rtm) ((rtm)->contStates)
+# define rtmGetContStates(rtm)         ((rtm)->contStates)
 #endif
 
 #ifndef rtmSetContStates
-# define rtmSetContStates(rtm, val) ((rtm)->contStates = (val))
+# define rtmSetContStates(rtm, val)    ((rtm)->contStates = (val))
 #endif
 
 #ifndef rtmGetDataMapInfo
-# define rtmGetDataMapInfo(rtm) ()
+# define rtmGetDataMapInfo(rtm)        ()
 #endif
 
 #ifndef rtmSetDataMapInfo
-# define rtmSetDataMapInfo(rtm, val) ()
+# define rtmSetDataMapInfo(rtm, val)   ()
 #endif
 
 #ifndef rtmGetDefaultParam
-# define rtmGetDefaultParam(rtm) ((rtm)->defaultParam)
+# define rtmGetDefaultParam(rtm)       ((rtm)->defaultParam)
 #endif
 
 #ifndef rtmSetDefaultParam
-# define rtmSetDefaultParam(rtm, val) ((rtm)->defaultParam = (val))
+# define rtmSetDefaultParam(rtm, val)  ((rtm)->defaultParam = (val))
 #endif
 
 #ifndef rtmGetDerivCacheNeedsReset
@@ -135,7 +111,7 @@
 #endif
 
 #ifndef rtmGetDirectFeedThrough
-# define rtmGetDirectFeedThrough(rtm) ((rtm)->Sizes.sysDirFeedThru)
+# define rtmGetDirectFeedThrough(rtm)  ((rtm)->Sizes.sysDirFeedThru)
 #endif
 
 #ifndef rtmSetDirectFeedThrough
@@ -143,7 +119,7 @@
 #endif
 
 #ifndef rtmGetErrorStatusFlag
-# define rtmGetErrorStatusFlag(rtm) ((rtm)->errorStatus)
+# define rtmGetErrorStatusFlag(rtm)    ((rtm)->errorStatus)
 #endif
 
 #ifndef rtmSetErrorStatusFlag
@@ -151,15 +127,15 @@
 #endif
 
 #ifndef rtmGetFinalTime
-# define rtmGetFinalTime(rtm) ((rtm)->Timing.tFinal)
+# define rtmGetFinalTime(rtm)          ((rtm)->Timing.tFinal)
 #endif
 
 #ifndef rtmSetFinalTime
-# define rtmSetFinalTime(rtm, val) ((rtm)->Timing.tFinal = (val))
+# define rtmSetFinalTime(rtm, val)     ((rtm)->Timing.tFinal = (val))
 #endif
 
 #ifndef rtmGetFirstInitCondFlag
-# define rtmGetFirstInitCondFlag(rtm) ()
+# define rtmGetFirstInitCondFlag(rtm)  ()
 #endif
 
 #ifndef rtmSetFirstInitCondFlag
@@ -167,15 +143,15 @@
 #endif
 
 #ifndef rtmGetIntgData
-# define rtmGetIntgData(rtm) ()
+# define rtmGetIntgData(rtm)           ()
 #endif
 
 #ifndef rtmSetIntgData
-# define rtmSetIntgData(rtm, val) ()
+# define rtmSetIntgData(rtm, val)      ()
 #endif
 
 #ifndef rtmGetMdlRefGlobalTID
-# define rtmGetMdlRefGlobalTID(rtm) ()
+# define rtmGetMdlRefGlobalTID(rtm)    ()
 #endif
 
 #ifndef rtmSetMdlRefGlobalTID
@@ -183,7 +159,7 @@
 #endif
 
 #ifndef rtmGetMdlRefTriggerTID
-# define rtmGetMdlRefTriggerTID(rtm) ()
+# define rtmGetMdlRefTriggerTID(rtm)   ()
 #endif
 
 #ifndef rtmSetMdlRefTriggerTID
@@ -191,7 +167,7 @@
 #endif
 
 #ifndef rtmGetModelMappingInfo
-# define rtmGetModelMappingInfo(rtm) ((rtm)->SpecialInfo.mappingInfo)
+# define rtmGetModelMappingInfo(rtm)   ((rtm)->SpecialInfo.mappingInfo)
 #endif
 
 #ifndef rtmSetModelMappingInfo
@@ -199,15 +175,15 @@
 #endif
 
 #ifndef rtmGetModelName
-# define rtmGetModelName(rtm) ((rtm)->modelName)
+# define rtmGetModelName(rtm)          ((rtm)->modelName)
 #endif
 
 #ifndef rtmSetModelName
-# define rtmSetModelName(rtm, val) ((rtm)->modelName = (val))
+# define rtmSetModelName(rtm, val)     ((rtm)->modelName = (val))
 #endif
 
 #ifndef rtmGetNonInlinedSFcns
-# define rtmGetNonInlinedSFcns(rtm) ()
+# define rtmGetNonInlinedSFcns(rtm)    ()
 #endif
 
 #ifndef rtmSetNonInlinedSFcns
@@ -215,15 +191,15 @@
 #endif
 
 #ifndef rtmGetNumBlockIO
-# define rtmGetNumBlockIO(rtm) ((rtm)->Sizes.numBlockIO)
+# define rtmGetNumBlockIO(rtm)         ((rtm)->Sizes.numBlockIO)
 #endif
 
 #ifndef rtmSetNumBlockIO
-# define rtmSetNumBlockIO(rtm, val) ((rtm)->Sizes.numBlockIO = (val))
+# define rtmSetNumBlockIO(rtm, val)    ((rtm)->Sizes.numBlockIO = (val))
 #endif
 
 #ifndef rtmGetNumBlockParams
-# define rtmGetNumBlockParams(rtm) ((rtm)->Sizes.numBlockPrms)
+# define rtmGetNumBlockParams(rtm)     ((rtm)->Sizes.numBlockPrms)
 #endif
 
 #ifndef rtmSetNumBlockParams
@@ -231,15 +207,15 @@
 #endif
 
 #ifndef rtmGetNumBlocks
-# define rtmGetNumBlocks(rtm) ((rtm)->Sizes.numBlocks)
+# define rtmGetNumBlocks(rtm)          ((rtm)->Sizes.numBlocks)
 #endif
 
 #ifndef rtmSetNumBlocks
-# define rtmSetNumBlocks(rtm, val) ((rtm)->Sizes.numBlocks = (val))
+# define rtmSetNumBlocks(rtm, val)     ((rtm)->Sizes.numBlocks = (val))
 #endif
 
 #ifndef rtmGetNumContStates
-# define rtmGetNumContStates(rtm) ((rtm)->Sizes.numContStates)
+# define rtmGetNumContStates(rtm)      ((rtm)->Sizes.numContStates)
 #endif
 
 #ifndef rtmSetNumContStates
@@ -247,15 +223,15 @@
 #endif
 
 #ifndef rtmGetNumDWork
-# define rtmGetNumDWork(rtm) ((rtm)->Sizes.numDwork)
+# define rtmGetNumDWork(rtm)           ((rtm)->Sizes.numDwork)
 #endif
 
 #ifndef rtmSetNumDWork
-# define rtmSetNumDWork(rtm, val) ((rtm)->Sizes.numDwork = (val))
+# define rtmSetNumDWork(rtm, val)      ((rtm)->Sizes.numDwork = (val))
 #endif
 
 #ifndef rtmGetNumInputPorts
-# define rtmGetNumInputPorts(rtm) ((rtm)->Sizes.numIports)
+# define rtmGetNumInputPorts(rtm)      ((rtm)->Sizes.numIports)
 #endif
 
 #ifndef rtmSetNumInputPorts
@@ -263,7 +239,7 @@
 #endif
 
 #ifndef rtmGetNumNonSampledZCs
-# define rtmGetNumNonSampledZCs(rtm) ((rtm)->Sizes.numNonSampZCs)
+# define rtmGetNumNonSampledZCs(rtm)   ((rtm)->Sizes.numNonSampZCs)
 #endif
 
 #ifndef rtmSetNumNonSampledZCs
@@ -271,7 +247,7 @@
 #endif
 
 #ifndef rtmGetNumOutputPorts
-# define rtmGetNumOutputPorts(rtm) ((rtm)->Sizes.numOports)
+# define rtmGetNumOutputPorts(rtm)     ((rtm)->Sizes.numOports)
 #endif
 
 #ifndef rtmSetNumOutputPorts
@@ -287,7 +263,7 @@
 #endif
 
 #ifndef rtmGetNumSFcnParams
-# define rtmGetNumSFcnParams(rtm) ((rtm)->Sizes.numSFcnPrms)
+# define rtmGetNumSFcnParams(rtm)      ((rtm)->Sizes.numSFcnPrms)
 #endif
 
 #ifndef rtmSetNumSFcnParams
@@ -295,7 +271,7 @@
 #endif
 
 #ifndef rtmGetNumSFunctions
-# define rtmGetNumSFunctions(rtm) ((rtm)->Sizes.numSFcns)
+# define rtmGetNumSFunctions(rtm)      ((rtm)->Sizes.numSFcns)
 #endif
 
 #ifndef rtmSetNumSFunctions
@@ -303,7 +279,7 @@
 #endif
 
 #ifndef rtmGetNumSampleTimes
-# define rtmGetNumSampleTimes(rtm) ((rtm)->Sizes.numSampTimes)
+# define rtmGetNumSampleTimes(rtm)     ((rtm)->Sizes.numSampTimes)
 #endif
 
 #ifndef rtmSetNumSampleTimes
@@ -311,39 +287,39 @@
 #endif
 
 #ifndef rtmGetNumU
-# define rtmGetNumU(rtm) ((rtm)->Sizes.numU)
+# define rtmGetNumU(rtm)               ((rtm)->Sizes.numU)
 #endif
 
 #ifndef rtmSetNumU
-# define rtmSetNumU(rtm, val) ((rtm)->Sizes.numU = (val))
+# define rtmSetNumU(rtm, val)          ((rtm)->Sizes.numU = (val))
 #endif
 
 #ifndef rtmGetNumY
-# define rtmGetNumY(rtm) ((rtm)->Sizes.numY)
+# define rtmGetNumY(rtm)               ((rtm)->Sizes.numY)
 #endif
 
 #ifndef rtmSetNumY
-# define rtmSetNumY(rtm, val) ((rtm)->Sizes.numY = (val))
+# define rtmSetNumY(rtm, val)          ((rtm)->Sizes.numY = (val))
 #endif
 
 #ifndef rtmGetOdeF
-# define rtmGetOdeF(rtm) ()
+# define rtmGetOdeF(rtm)               ()
 #endif
 
 #ifndef rtmSetOdeF
-# define rtmSetOdeF(rtm, val) ()
+# define rtmSetOdeF(rtm, val)          ()
 #endif
 
 #ifndef rtmGetOdeY
-# define rtmGetOdeY(rtm) ()
+# define rtmGetOdeY(rtm)               ()
 #endif
 
 #ifndef rtmSetOdeY
-# define rtmSetOdeY(rtm, val) ()
+# define rtmSetOdeY(rtm, val)          ()
 #endif
 
 #ifndef rtmGetOffsetTimeArray
-# define rtmGetOffsetTimeArray(rtm) ((rtm)->Timing.offsetTimesArray)
+# define rtmGetOffsetTimeArray(rtm)    ((rtm)->Timing.offsetTimesArray)
 #endif
 
 #ifndef rtmSetOffsetTimeArray
@@ -351,7 +327,7 @@
 #endif
 
 #ifndef rtmGetOffsetTimePtr
-# define rtmGetOffsetTimePtr(rtm) ((rtm)->Timing.offsetTimes)
+# define rtmGetOffsetTimePtr(rtm)      ((rtm)->Timing.offsetTimes)
 #endif
 
 #ifndef rtmSetOffsetTimePtr
@@ -359,15 +335,15 @@
 #endif
 
 #ifndef rtmGetOptions
-# define rtmGetOptions(rtm) ((rtm)->Sizes.options)
+# define rtmGetOptions(rtm)            ((rtm)->Sizes.options)
 #endif
 
 #ifndef rtmSetOptions
-# define rtmSetOptions(rtm, val) ((rtm)->Sizes.options = (val))
+# define rtmSetOptions(rtm, val)       ((rtm)->Sizes.options = (val))
 #endif
 
 #ifndef rtmGetParamIsMalloced
-# define rtmGetParamIsMalloced(rtm) ()
+# define rtmGetParamIsMalloced(rtm)    ()
 #endif
 
 #ifndef rtmSetParamIsMalloced
@@ -375,15 +351,15 @@
 #endif
 
 #ifndef rtmGetPath
-# define rtmGetPath(rtm) ((rtm)->path)
+# define rtmGetPath(rtm)               ((rtm)->path)
 #endif
 
 #ifndef rtmSetPath
-# define rtmSetPath(rtm, val) ((rtm)->path = (val))
+# define rtmSetPath(rtm, val)          ((rtm)->path = (val))
 #endif
 
 #ifndef rtmGetPerTaskSampleHits
-# define rtmGetPerTaskSampleHits(rtm) ()
+# define rtmGetPerTaskSampleHits(rtm)  ()
 #endif
 
 #ifndef rtmSetPerTaskSampleHits
@@ -423,7 +399,7 @@
 #endif
 
 #ifndef rtmGetPrevZCSigState
-# define rtmGetPrevZCSigState(rtm) ((rtm)->prevZCSigState)
+# define rtmGetPrevZCSigState(rtm)     ((rtm)->prevZCSigState)
 #endif
 
 #ifndef rtmSetPrevZCSigState
@@ -431,7 +407,7 @@
 #endif
 
 #ifndef rtmGetRTWExtModeInfo
-# define rtmGetRTWExtModeInfo(rtm) ((rtm)->extModeInfo)
+# define rtmGetRTWExtModeInfo(rtm)     ((rtm)->extModeInfo)
 #endif
 
 #ifndef rtmSetRTWExtModeInfo
@@ -439,7 +415,7 @@
 #endif
 
 #ifndef rtmGetRTWGeneratedSFcn
-# define rtmGetRTWGeneratedSFcn(rtm) ((rtm)->Sizes.rtwGenSfcn)
+# define rtmGetRTWGeneratedSFcn(rtm)   ((rtm)->Sizes.rtwGenSfcn)
 #endif
 
 #ifndef rtmSetRTWGeneratedSFcn
@@ -447,11 +423,11 @@
 #endif
 
 #ifndef rtmGetRTWLogInfo
-# define rtmGetRTWLogInfo(rtm) ((rtm)->rtwLogInfo)
+# define rtmGetRTWLogInfo(rtm)         ((rtm)->rtwLogInfo)
 #endif
 
 #ifndef rtmSetRTWLogInfo
-# define rtmSetRTWLogInfo(rtm, val) ((rtm)->rtwLogInfo = (val))
+# define rtmSetRTWLogInfo(rtm, val)    ((rtm)->rtwLogInfo = (val))
 #endif
 
 #ifndef rtmGetRTWRTModelMethodsInfo
@@ -463,15 +439,15 @@
 #endif
 
 #ifndef rtmGetRTWSfcnInfo
-# define rtmGetRTWSfcnInfo(rtm) ((rtm)->sfcnInfo)
+# define rtmGetRTWSfcnInfo(rtm)        ((rtm)->sfcnInfo)
 #endif
 
 #ifndef rtmSetRTWSfcnInfo
-# define rtmSetRTWSfcnInfo(rtm, val) ((rtm)->sfcnInfo = (val))
+# define rtmSetRTWSfcnInfo(rtm, val)   ((rtm)->sfcnInfo = (val))
 #endif
 
 #ifndef rtmGetRTWSolverInfo
-# define rtmGetRTWSolverInfo(rtm) ((rtm)->solverInfo)
+# define rtmGetRTWSolverInfo(rtm)      ((rtm)->solverInfo)
 #endif
 
 #ifndef rtmSetRTWSolverInfo
@@ -479,7 +455,7 @@
 #endif
 
 #ifndef rtmGetRTWSolverInfoPtr
-# define rtmGetRTWSolverInfoPtr(rtm) ((rtm)->solverInfoPtr)
+# define rtmGetRTWSolverInfoPtr(rtm)   ((rtm)->solverInfoPtr)
 #endif
 
 #ifndef rtmSetRTWSolverInfoPtr
@@ -487,7 +463,7 @@
 #endif
 
 #ifndef rtmGetReservedForXPC
-# define rtmGetReservedForXPC(rtm) ((rtm)->SpecialInfo.xpcData)
+# define rtmGetReservedForXPC(rtm)     ((rtm)->SpecialInfo.xpcData)
 #endif
 
 #ifndef rtmSetReservedForXPC
@@ -495,23 +471,23 @@
 #endif
 
 #ifndef rtmGetRootDWork
-# define rtmGetRootDWork(rtm) ((rtm)->dwork)
+# define rtmGetRootDWork(rtm)          ((rtm)->dwork)
 #endif
 
 #ifndef rtmSetRootDWork
-# define rtmSetRootDWork(rtm, val) ((rtm)->dwork = (val))
+# define rtmSetRootDWork(rtm, val)     ((rtm)->dwork = (val))
 #endif
 
 #ifndef rtmGetSFunctions
-# define rtmGetSFunctions(rtm) ((rtm)->childSfunctions)
+# define rtmGetSFunctions(rtm)         ((rtm)->childSfunctions)
 #endif
 
 #ifndef rtmSetSFunctions
-# define rtmSetSFunctions(rtm, val) ((rtm)->childSfunctions = (val))
+# define rtmSetSFunctions(rtm, val)    ((rtm)->childSfunctions = (val))
 #endif
 
 #ifndef rtmGetSampleHitArray
-# define rtmGetSampleHitArray(rtm) ((rtm)->Timing.sampleHitArray)
+# define rtmGetSampleHitArray(rtm)     ((rtm)->Timing.sampleHitArray)
 #endif
 
 #ifndef rtmSetSampleHitArray
@@ -519,15 +495,15 @@
 #endif
 
 #ifndef rtmGetSampleHitPtr
-# define rtmGetSampleHitPtr(rtm) ((rtm)->Timing.sampleHits)
+# define rtmGetSampleHitPtr(rtm)       ((rtm)->Timing.sampleHits)
 #endif
 
 #ifndef rtmSetSampleHitPtr
-# define rtmSetSampleHitPtr(rtm, val) ((rtm)->Timing.sampleHits = (val))
+# define rtmSetSampleHitPtr(rtm, val)  ((rtm)->Timing.sampleHits = (val))
 #endif
 
 #ifndef rtmGetSampleTimeArray
-# define rtmGetSampleTimeArray(rtm) ((rtm)->Timing.sampleTimesArray)
+# define rtmGetSampleTimeArray(rtm)    ((rtm)->Timing.sampleTimesArray)
 #endif
 
 #ifndef rtmSetSampleTimeArray
@@ -535,7 +511,7 @@
 #endif
 
 #ifndef rtmGetSampleTimePtr
-# define rtmGetSampleTimePtr(rtm) ((rtm)->Timing.sampleTimes)
+# define rtmGetSampleTimePtr(rtm)      ((rtm)->Timing.sampleTimes)
 #endif
 
 #ifndef rtmSetSampleTimePtr
@@ -559,47 +535,47 @@
 #endif
 
 #ifndef rtmGetSelf
-# define rtmGetSelf(rtm) ()
+# define rtmGetSelf(rtm)               ()
 #endif
 
 #ifndef rtmSetSelf
-# define rtmSetSelf(rtm, val) ()
+# define rtmSetSelf(rtm, val)          ()
 #endif
 
 #ifndef rtmGetSimMode
-# define rtmGetSimMode(rtm) ((rtm)->simMode)
+# define rtmGetSimMode(rtm)            ((rtm)->simMode)
 #endif
 
 #ifndef rtmSetSimMode
-# define rtmSetSimMode(rtm, val) ((rtm)->simMode = (val))
+# define rtmSetSimMode(rtm, val)       ((rtm)->simMode = (val))
 #endif
 
 #ifndef rtmGetSimTimeStep
-# define rtmGetSimTimeStep(rtm) ((rtm)->Timing.simTimeStep)
+# define rtmGetSimTimeStep(rtm)        ((rtm)->Timing.simTimeStep)
 #endif
 
 #ifndef rtmSetSimTimeStep
-# define rtmSetSimTimeStep(rtm, val) ((rtm)->Timing.simTimeStep = (val))
+# define rtmSetSimTimeStep(rtm, val)   ((rtm)->Timing.simTimeStep = (val))
 #endif
 
 #ifndef rtmGetStartTime
-# define rtmGetStartTime(rtm) ((rtm)->Timing.tStart)
+# define rtmGetStartTime(rtm)          ((rtm)->Timing.tStart)
 #endif
 
 #ifndef rtmSetStartTime
-# define rtmSetStartTime(rtm, val) ((rtm)->Timing.tStart = (val))
+# define rtmSetStartTime(rtm, val)     ((rtm)->Timing.tStart = (val))
 #endif
 
 #ifndef rtmGetStepSize
-# define rtmGetStepSize(rtm) ((rtm)->Timing.stepSize)
+# define rtmGetStepSize(rtm)           ((rtm)->Timing.stepSize)
 #endif
 
 #ifndef rtmSetStepSize
-# define rtmSetStepSize(rtm, val) ((rtm)->Timing.stepSize = (val))
+# define rtmSetStepSize(rtm, val)      ((rtm)->Timing.stepSize = (val))
 #endif
 
 #ifndef rtmGetStopRequestedFlag
-# define rtmGetStopRequestedFlag(rtm) ((rtm)->Timing.stopRequestedFlag)
+# define rtmGetStopRequestedFlag(rtm)  ((rtm)->Timing.stopRequestedFlag)
 #endif
 
 #ifndef rtmSetStopRequestedFlag
@@ -607,15 +583,15 @@
 #endif
 
 #ifndef rtmGetTaskCounters
-# define rtmGetTaskCounters(rtm) ()
+# define rtmGetTaskCounters(rtm)       ()
 #endif
 
 #ifndef rtmSetTaskCounters
-# define rtmSetTaskCounters(rtm, val) ()
+# define rtmSetTaskCounters(rtm, val)  ()
 #endif
 
 #ifndef rtmGetTaskTimeArray
-# define rtmGetTaskTimeArray(rtm) ((rtm)->Timing.tArray)
+# define rtmGetTaskTimeArray(rtm)      ((rtm)->Timing.tArray)
 #endif
 
 #ifndef rtmSetTaskTimeArray
@@ -623,27 +599,27 @@
 #endif
 
 #ifndef rtmGetTimePtr
-# define rtmGetTimePtr(rtm) ((rtm)->Timing.t)
+# define rtmGetTimePtr(rtm)            ((rtm)->Timing.t)
 #endif
 
 #ifndef rtmSetTimePtr
-# define rtmSetTimePtr(rtm, val) ((rtm)->Timing.t = (val))
+# define rtmSetTimePtr(rtm, val)       ((rtm)->Timing.t = (val))
 #endif
 
 #ifndef rtmGetTimingData
-# define rtmGetTimingData(rtm) ((rtm)->Timing.timingData)
+# define rtmGetTimingData(rtm)         ((rtm)->Timing.timingData)
 #endif
 
 #ifndef rtmSetTimingData
-# define rtmSetTimingData(rtm, val) ((rtm)->Timing.timingData = (val))
+# define rtmSetTimingData(rtm, val)    ((rtm)->Timing.timingData = (val))
 #endif
 
 #ifndef rtmGetU
-# define rtmGetU(rtm) ((rtm)->inputs)
+# define rtmGetU(rtm)                  ((rtm)->inputs)
 #endif
 
 #ifndef rtmSetU
-# define rtmSetU(rtm, val) ((rtm)->inputs = (val))
+# define rtmSetU(rtm, val)             ((rtm)->inputs = (val))
 #endif
 
 #ifndef rtmGetVarNextHitTimesListPtr
@@ -655,15 +631,15 @@
 #endif
 
 #ifndef rtmGetY
-# define rtmGetY(rtm) ((rtm)->outputs)
+# define rtmGetY(rtm)                  ((rtm)->outputs)
 #endif
 
 #ifndef rtmSetY
-# define rtmSetY(rtm, val) ((rtm)->outputs = (val))
+# define rtmSetY(rtm, val)             ((rtm)->outputs = (val))
 #endif
 
 #ifndef rtmGetZCCacheNeedsReset
-# define rtmGetZCCacheNeedsReset(rtm) ((rtm)->zCCacheNeedsReset)
+# define rtmGetZCCacheNeedsReset(rtm)  ((rtm)->zCCacheNeedsReset)
 #endif
 
 #ifndef rtmSetZCCacheNeedsReset
@@ -671,7 +647,7 @@
 #endif
 
 #ifndef rtmGetZCSignalValues
-# define rtmGetZCSignalValues(rtm) ((rtm)->zcSignalValues)
+# define rtmGetZCSignalValues(rtm)     ((rtm)->zcSignalValues)
 #endif
 
 #ifndef rtmSetZCSignalValues
@@ -679,7 +655,7 @@
 #endif
 
 #ifndef rtmGet_TimeOfLastOutput
-# define rtmGet_TimeOfLastOutput(rtm) ((rtm)->Timing.timeOfLastOutput)
+# define rtmGet_TimeOfLastOutput(rtm)  ((rtm)->Timing.timeOfLastOutput)
 #endif
 
 #ifndef rtmSet_TimeOfLastOutput
@@ -687,17 +663,15 @@
 #endif
 
 #ifndef rtmGetdX
-# define rtmGetdX(rtm) ((rtm)->derivs)
+# define rtmGetdX(rtm)                 ((rtm)->derivs)
 #endif
 
 #ifndef rtmSetdX
-# define rtmSetdX(rtm, val) ((rtm)->derivs = (val))
+# define rtmSetdX(rtm, val)            ((rtm)->derivs = (val))
 #endif
 
-
-
-    #ifndef rtmGetChecksumVal
-# define rtmGetChecksumVal(rtm, idx) ((rtm)->Sizes.checksums[idx])
+#ifndef rtmGetChecksumVal
+# define rtmGetChecksumVal(rtm, idx)   ((rtm)->Sizes.checksums[idx])
 #endif
 
 #ifndef rtmSetChecksumVal
@@ -705,15 +679,15 @@
 #endif
 
 #ifndef rtmGetDWork
-# define rtmGetDWork(rtm, idx) ((rtm)->dwork[idx])
+# define rtmGetDWork(rtm, idx)         ((rtm)->dwork[idx])
 #endif
 
 #ifndef rtmSetDWork
-# define rtmSetDWork(rtm, idx, val) ((rtm)->dwork[idx] = (val))
+# define rtmSetDWork(rtm, idx, val)    ((rtm)->dwork[idx] = (val))
 #endif
 
 #ifndef rtmGetOffsetTime
-# define rtmGetOffsetTime(rtm, idx) ((rtm)->Timing.offsetTimes[idx])
+# define rtmGetOffsetTime(rtm, idx)    ((rtm)->Timing.offsetTimes[idx])
 #endif
 
 #ifndef rtmSetOffsetTime
@@ -721,7 +695,7 @@
 #endif
 
 #ifndef rtmGetSFunction
-# define rtmGetSFunction(rtm, idx) ((rtm)->childSfunctions[idx])
+# define rtmGetSFunction(rtm, idx)     ((rtm)->childSfunctions[idx])
 #endif
 
 #ifndef rtmSetSFunction
@@ -729,7 +703,7 @@
 #endif
 
 #ifndef rtmGetSampleTime
-# define rtmGetSampleTime(rtm, idx) ((rtm)->Timing.sampleTimes[idx])
+# define rtmGetSampleTime(rtm, idx)    ((rtm)->Timing.sampleTimes[idx])
 #endif
 
 #ifndef rtmSetSampleTime
@@ -752,18 +726,16 @@
 # define rtmSetVarNextHitTimeList(rtm, idx, val) ((rtm)->Timing.varNextHitTimesList[idx] = (val))
 #endif
 
-
-
-    #ifndef rtmIsContinuousTask
+#ifndef rtmIsContinuousTask
 # define rtmIsContinuousTask(rtm, tid) 0
 #endif
 
 #ifndef rtmGetErrorStatus
-# define rtmGetErrorStatus(rtm) ((rtm)->errorStatus)
+# define rtmGetErrorStatus(rtm)        ((rtm)->errorStatus)
 #endif
 
 #ifndef rtmSetErrorStatus
-# define rtmSetErrorStatus(rtm, val) ((rtm)->errorStatus = (val))
+# define rtmSetErrorStatus(rtm, val)   ((rtm)->errorStatus = (val))
 #endif
 
 #ifndef rtmIsSampleHit
@@ -771,7 +743,7 @@
 #endif
 
 #ifndef rtmGetStopRequested
-# define rtmGetStopRequested(rtm) ((rtm)->Timing.stopRequestedFlag)
+# define rtmGetStopRequested(rtm)      ((rtm)->Timing.stopRequestedFlag)
 #endif
 
 #ifndef rtmSetStopRequested
@@ -779,43 +751,43 @@
 #endif
 
 #ifndef rtmGetStopRequestedPtr
-# define rtmGetStopRequestedPtr(rtm) (&((rtm)->Timing.stopRequestedFlag))
+# define rtmGetStopRequestedPtr(rtm)   (&((rtm)->Timing.stopRequestedFlag))
 #endif
 
 #ifndef rtmGetT
-# define rtmGetT(rtm) (rtmGetTPtr((rtm))[0])
+# define rtmGetT(rtm)                  (rtmGetTPtr((rtm))[0])
 #endif
 
 #ifndef rtmSetT
-# define rtmSetT(rtm, val) /* Do Nothing */
+# define rtmSetT(rtm, val)                                       /* Do Nothing */
 #endif
 
 #ifndef rtmGetTFinal
-# define rtmGetTFinal(rtm) ((rtm)->Timing.tFinal)
+# define rtmGetTFinal(rtm)             ((rtm)->Timing.tFinal)
 #endif
 
 #ifndef rtmSetTFinal
-# define rtmSetTFinal(rtm, val) ((rtm)->Timing.tFinal = (val))
+# define rtmSetTFinal(rtm, val)        ((rtm)->Timing.tFinal = (val))
 #endif
 
 #ifndef rtmGetTPtr
-# define rtmGetTPtr(rtm) ((rtm)->Timing.t)
+# define rtmGetTPtr(rtm)               ((rtm)->Timing.t)
 #endif
 
 #ifndef rtmSetTPtr
-# define rtmSetTPtr(rtm, val) ((rtm)->Timing.t = (val))
+# define rtmSetTPtr(rtm, val)          ((rtm)->Timing.t = (val))
 #endif
 
 #ifndef rtmGetTStart
-# define rtmGetTStart(rtm) ((rtm)->Timing.tStart)
+# define rtmGetTStart(rtm)             ((rtm)->Timing.tStart)
 #endif
 
 #ifndef rtmSetTStart
-# define rtmSetTStart(rtm, val) ((rtm)->Timing.tStart = (val))
+# define rtmSetTStart(rtm, val)        ((rtm)->Timing.tStart = (val))
 #endif
 
 #ifndef rtmGetTaskTime
-# define rtmGetTaskTime(rtm, sti) (rtmGetTPtr((rtm))[(rtm)->Timing.sampleTimeTaskIDPtr[sti]])
+# define rtmGetTaskTime(rtm, sti)      (rtmGetTPtr((rtm))[(rtm)->Timing.sampleTimeTaskIDPtr[sti]])
 #endif
 
 #ifndef rtmSetTaskTime
@@ -823,155 +795,76 @@
 #endif
 
 #ifndef rtmGetTimeOfLastOutput
-# define rtmGetTimeOfLastOutput(rtm) ((rtm)->Timing.timeOfLastOutput)
+# define rtmGetTimeOfLastOutput(rtm)   ((rtm)->Timing.timeOfLastOutput)
 #endif
 
-
-  #ifdef rtmGetRTWSolverInfo
+#ifdef rtmGetRTWSolverInfo
 #undef rtmGetRTWSolverInfo
 #endif
-#define rtmGetRTWSolverInfo(rtm) &((rtm)->solverInfo)
 
-   
-    
-      
-      /* Definition for use in the target main file */
-      #define parallelizationTest_rtModel RT_MODEL_parallelizationTest_T
+#define rtmGetRTWSolverInfo(rtm)       &((rtm)->solverInfo)
 
+/* Definition for use in the target main file */
+#define parallelizationTest_rtModel    RT_MODEL_parallelizationTest_T
 
-  
+/* Block states (auto storage) for system '<Root>' */
+typedef struct {
+  uint32_T state[625];                 /* '<Root>/MATLAB Function' */
+} DW_parallelizationTest_T;
 
-  
+/* Backward compatible GRT Identifiers */
+#define rtP                            parallelizationTest_P
+#define Parameters                     P_parallelizationTest_T
+#define rtDWork                        parallelizationTest_DW
+#define D_Work                         DW_parallelizationTest_T
 
-  
+/* Parameters (auto storage) */
+struct P_parallelizationTest_T_ {
+  real_T matrix_size_Value;            /* Expression: 500
+                                        * Referenced by: '<Root>/matrix_size'
+                                        */
+  real_T repeat_times_Value;           /* Expression: 15
+                                        * Referenced by: '<Root>/repeat_times'
+                                        */
+};
 
-  
+/* Real-time Model Data Structure */
+struct tag_RTM_parallelizationTest_T {
+  const char_T *path;
+  const char_T *modelName;
+  struct SimStruct_tag * *childSfunctions;
+  const char_T *errorStatus;
+  SS_SimMode simMode;
+  RTWLogInfo *rtwLogInfo;
+  RTWExtModeInfo *extModeInfo;
+  RTWSolverInfo solverInfo;
+  RTWSolverInfo *solverInfoPtr;
+  void *sfcnInfo;
+  void *blockIO;
+  const void *constBlockIO;
+  void *defaultParam;
+  ZCSigState *prevZCSigState;
+  real_T *contStates;
+  int_T *periodicContStateIndices;
+  real_T *periodicContStateRanges;
+  real_T *derivs;
+  void *zcSignalValues;
+  void *inputs;
+  void *outputs;
+  boolean_T *contStateDisabled;
+  boolean_T zCCacheNeedsReset;
+  boolean_T derivCacheNeedsReset;
+  boolean_T blkStateChange;
+  void *dwork;
 
-      
-          /* Block states (auto storage) for system '<Root>' */
-              
-        
-  
-     typedef struct  {
-  
-  
-
-
-        
-          
-          
-            
-          
-            
-
-                   uint32_T state[625]; /* '<Root>/MATLAB Function' */
-                          
-
-          
-          
-	  
-
-
-
-
-  
-    } DW_parallelizationTest_T;
-  
-
-      
-        
-  
-    /* Backward compatible GRT Identifiers */
-              #define rtP              parallelizationTest_P
-      #define Parameters       P_parallelizationTest_T
-      #define rtDWork          parallelizationTest_DW
-      #define D_Work           DW_parallelizationTest_T
-          
-            /* Parameters (auto storage) */
-      
-        struct P_parallelizationTest_T_ {
-          
-
-
-        
-          
-          
-            
-          
-            
-
-                   real_T matrix_size_Value; /* Expression: 500
-    * Referenced by: '<Root>/matrix_size'
-    */
-                          
-
-          
-          
-	  
-
-
-
-        
-          
-          
-            
-          
-            
-
-                   real_T repeat_times_Value; /* Expression: 15
-    * Referenced by: '<Root>/repeat_times'
-    */
-                          
-
-          
-          
-	  
-
-
-
-
-        };
-      
-      
-
-    
-    /* Real-time Model Data Structure */
-      struct tag_RTM_parallelizationTest_T {
-        const char_T *path;
-    const char_T *modelName;
-    struct SimStruct_tag * *childSfunctions;
-    const char_T *errorStatus;
-    SS_SimMode simMode;
-    RTWLogInfo *rtwLogInfo;
-    RTWExtModeInfo *extModeInfo;
-    RTWSolverInfo solverInfo;
-    RTWSolverInfo *solverInfoPtr;
-    void *sfcnInfo;
-    void *blockIO;
-    const void *constBlockIO;
-    void *defaultParam;
-    ZCSigState *prevZCSigState;
-    real_T *contStates;
-    int_T *periodicContStateIndices;
-    real_T *periodicContStateRanges;
-    real_T *derivs;
-    void *zcSignalValues;
-    void *inputs;
-    void *outputs;
-    boolean_T *contStateDisabled;
-    boolean_T zCCacheNeedsReset;
-    boolean_T derivCacheNeedsReset;
-    boolean_T blkStateChange;
-    void *dwork;
-
-              /*
-     * Sizes:
-           * The following substructure contains sizes information
-      * for many of the model attributes such as inputs, outputs,
-      * dwork, sample times, etc.
-      */
-   struct  {
-        uint32_T checksums[4];
+  /*
+   * Sizes:
+   * The following substructure contains sizes information
+   * for many of the model attributes such as inputs, outputs,
+   * dwork, sample times, etc.
+   */
+  struct {
+    uint32_T checksums[4];
     uint32_T options;
     int_T numContStates;
     int_T numPeriodicContStates;
@@ -989,27 +882,25 @@
     int_T numNonSampZCs;
     int_T sysDirFeedThru;
     int_T rtwGenSfcn;
-
   } Sizes;
 
-              /*
-     * SpecialInfo:
-           * The following substructure contains special information
-      * related to other components that are dependent on RTW.
-      */
-   struct  {
-        const void *mappingInfo;
+  /*
+   * SpecialInfo:
+   * The following substructure contains special information
+   * related to other components that are dependent on RTW.
+   */
+  struct {
+    const void *mappingInfo;
     void *xpcData;
-
   } SpecialInfo;
 
-              /*
-     * Timing:
-           * The following substructure contains information regarding
-      * the timing information for the model.
-      */
-   struct  {
-        time_T stepSize;
+  /*
+   * Timing:
+   * The following substructure contains information regarding
+   * the timing information for the model.
+   */
+  struct {
+    time_T stepSize;
     uint32_T clockTick0;
     uint32_T clockTickH0;
     time_T stepSize0;
@@ -1032,85 +923,106 @@
     int_T sampleHitArray[1];
     int_T perTaskSampleHitsArray[1];
     time_T tArray[1];
-
   } Timing;
+};
 
-  };
-      
-        
-          
+/* Block parameters (auto storage) */
+extern P_parallelizationTest_T parallelizationTest_P;
 
+/* Block states (auto storage) */
+extern DW_parallelizationTest_T parallelizationTest_DW;
 
-  
+/*====================*
+ * External functions *
+ *====================*/
+extern parallelizationTest_rtModel *parallelizationTest(void);
+extern void MdlInitializeSizes(void);
+extern void MdlInitializeSampleTimes(void);
+extern void MdlInitialize(void);
+extern void MdlStart(void);
+extern void MdlOutputs(int_T tid);
+extern void MdlUpdate(int_T tid);
+extern void MdlTerminate(void);
 
-  
+/* Real-time Model object */
+extern RT_MODEL_parallelizationTest_T *const parallelizationTest_M;
 
-          
+/*-
+ * The generated code includes comments that allow you to trace directly
+ * back to the appropriate location in the model.  The basic format
+ * is <system>/block_name, where system is the system number (uniquely
+ * assigned by Simulink) and block_name is the name of the block.
+ *
+ * Use the MATLAB hilite_system command to trace the generated code back
+ * to the model.  For example,
+ *
+ * hilite_system('<S3>')    - opens system 3
+ * hilite_system('<S3>/Kp') - opens and selects block Kp which resides in S3
+ *
+ * Here is the system hierarchy for this model
+ *
+ * '<Root>' : 'parallelizationTest'
+ * '<S1>'   : 'parallelizationTest/MATLAB Function'
+ */
+#endif                                 /* RTW_HEADER_parallelizationTest_h_ */
 
-      /* Block parameters (auto storage) */
-        extern         P_parallelizationTest_T parallelizationTest_P;
+/*========================================================================*
+ * NI VeriStand Model Framework code generation
+ *
+ * Model : parallelizationTest
+ * Model version : 1.9
+ * VeriStand Model Framework version : 2017.0.1.0 (2017 f1)
+ * Source generated on : Tue Sep 08 12:15:36 2020
+ *========================================================================*/
+#if !defined(NI_HEADER_parallelizationTest_h_)
+#define NI_HEADER_parallelizationTest_h_
+#ifdef NI_ROOTMODEL_parallelizationTest
 
+/* main model definitions enabled by makefile */
+#include "ni_pglobals.h"
+#ifndef NI_VERISTAND_MODELDATAFILE
+#ifdef NI_VERISTAND_MAINMODELFILE
 
+/* parallelizationTest.c definitions */
+int READSIDE = 0;
+int tid = 0;
 
-      
-        /* Block states (auto storage) */
-        extern         DW_parallelizationTest_T parallelizationTest_DW;
+#ifdef MULTITASKING
 
+/* multi-rate model */
+P_parallelizationTest_T rtParameter[NUMST+!TID01EQ];
+P_parallelizationTest_T *param_lookup[NUMST][2] = {
+  { &rtParameter[0], &rtParameter[1] },
+};
 
+#else
 
-    
+/* single-rate model */
+P_parallelizationTest_T rtParameter[2];
 
-      /*====================*
-     * External functions *
-     *====================*/
-       extern parallelizationTest_rtModel *parallelizationTest(void);
-       extern void MdlInitializeSizes(void);
-       extern void MdlInitializeSampleTimes(void);
-       extern void MdlInitialize(void);
-       extern void MdlStart(void);
-       extern void MdlOutputs(int_T tid);
-       extern void MdlUpdate(int_T tid);
-       extern void MdlTerminate(void);
+#endif
 
+#else
 
-  
+extern int READSIDE;
 
-            
-          /* Real-time Model object */
-          
-            extern             RT_MODEL_parallelizationTest_T *const parallelizationTest_M;
+#ifdef MULTITASKING
 
+/* multi-rate model */
+extern int tid;
+extern P_parallelizationTest_T* param_lookup[NUMST][2];
 
+#else
 
-          
+/* single-rate model */
+extern P_parallelizationTest_T rtParameter[];
 
+#endif
+#endif
 
-  
-
-  
-
-  
-
-        
-  /*-
-   * The generated code includes comments that allow you to trace directly 
-   * back to the appropriate location in the model.  The basic format
-   * is <system>/block_name, where system is the system number (uniquely
-   * assigned by Simulink) and block_name is the name of the block.
-   *
-   * Use the MATLAB hilite_system command to trace the generated code back
-   * to the model.  For example,
-   *
-   * hilite_system('<S3>')    - opens system 3
-   * hilite_system('<S3>/Kp') - opens and selects block Kp which resides in S3
-   *
-   * Here is the system hierarchy for this model
-   *
-    * '<Root>' : 'parallelizationTest'
-      * '<S1>'   : 'parallelizationTest/MATLAB Function'
-   */
-
-
-  
-
-    #endif /* RTW_HEADER_parallelizationTest_h_ */
+/* Declare parameter macros */
+#define _NI_DEFINE_PARAMS_DBL_BUFFER_
+#include "ni_pglobals.h"
+#endif
+#endif
+#endif                                 /* NI_HEADER_parallelizationTest_h_ */

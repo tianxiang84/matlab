@@ -3,13 +3,13 @@
  *
  * Code generation for model "mycfunc".
  *
- * Model version              : 1.15
+ * Model version              : 1.19
  * Simulink Coder version : 8.12 (R2017a) 16-Feb-2017
- * C source code generated on : Tue Sep 15 14:58:01 2020
+ * C source code generated on : Tue Sep 15 16:26:38 2020
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
- * Embedded hardware selection: Intel->x86-64 (Windows64)
+ * Embedded hardware selection: Generic->Custom
  * Code generation objectives: Unspecified
  * Validation result: Not run
  */
@@ -36,7 +36,7 @@ void mycfunc_step(void)
   rt_UpdateTXYLogVars(mycfunc_M->rtwLogInfo, (&mycfunc_M->Timing.taskTime0));
 
   /* signal main to stop simulation */
-  {                                    /* Sample time: [0.2s, 0.0s] */
+  {                                    /* Sample time: [0.1s, 0.0s] */
     if ((rtmGetTFinal(mycfunc_M)!=-1) &&
         !((rtmGetTFinal(mycfunc_M)-mycfunc_M->Timing.taskTime0) >
           mycfunc_M->Timing.taskTime0 * (DBL_EPSILON))) {
@@ -73,8 +73,8 @@ void mycfunc_initialize(void)
   /* initialize real-time model */
   (void) memset((void *)mycfunc_M, 0,
                 sizeof(RT_MODEL_mycfunc_T));
-  rtmSetTFinal(mycfunc_M, 10.0);
-  mycfunc_M->Timing.stepSize0 = 0.2;
+  rtmSetTFinal(mycfunc_M, 1.0);
+  mycfunc_M->Timing.stepSize0 = 0.1;
 
   /* Setup for data logging */
   {

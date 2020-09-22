@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'mycfunc'. 
 ## 
 ## Makefile     : mycfunc.mk
-## Generated on : Tue Sep 15 14:58:06 2020
+## Generated on : Tue Sep 15 16:26:43 2020
 ## MATLAB Coder version: 3.3 (R2017a)
 ## 
 ## Build Info:

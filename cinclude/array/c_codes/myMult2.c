@@ -37,11 +37,12 @@ void update_array(double *input, int num_rows, int num_cols){
 	// for cell i,j, it has j columns in front of it, each column has num_rows, so j*(num_rows)+i
 	for (i=0; i<num_rows; i++){
 		//nput[i] = 2.0;
-		for (j=0; j<num_rows; j++){
+		for (j=0; j<num_cols; j++){
 			input[j*(num_rows)+i] = (double)(i+2) * (double)(j+1);
 		}
 	}
 }
+
 /*
 int main(){
 	// Test simple output

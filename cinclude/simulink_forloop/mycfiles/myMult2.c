@@ -1,10 +1,18 @@
 #include <math.h>
+#include <unistd.h>
+
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
 #include <omp.h>
 #include "myMult2.h"
 
 double myMult2(double u)
 {
-	omp_set_num_threads( 32 );
+	omp_set_num_threads( 4 );
 	
 	// Create an array
 	int size = 10;
@@ -17,7 +25,7 @@ double myMult2(double u)
 	
 	int i;
 	#pragma omp parallel for
-	for (i=0; i<size; i++) {
+	for (i=0; i<4; i++) {
 		//double testA = 1.0;
 		my_vector[i] = exp( -sin( i*i + pi*log(i+1.0) ) );
 		my_vector[i] += -exp( -cos( i*i*i + pi*log10(i+10.0) ) );
@@ -25,6 +33,7 @@ double myMult2(double u)
 		my_vector[i] += exp( -sin( i*i*i*i*i + pi*log(i+2.0) ) );
 		my_vector[i] -= -exp( -cos( i*i*i*i*i*i + pi*log10(i+20.0) ) );
 		my_vector[i] += exp( -tan( i*i*i*i*i*i*i + pi*log(i+199.0) ) );
+		sleep(1);
 	}
 	
     return 2 * u + my_vector[0];

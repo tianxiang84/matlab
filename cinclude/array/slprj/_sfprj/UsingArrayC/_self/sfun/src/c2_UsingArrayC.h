@@ -21,7 +21,7 @@ typedef struct {
   uint8_T c2_is_active_c2_UsingArrayC;
   void *c2_fEmlrtCtx;
   real_T *c2_input;
-  real_T (*c2_output)[15];
+  real_T (*c2_output)[30];
 } SFc2_UsingArrayCInstanceStruct;
 
 #endif                                 /*typedef_SFc2_UsingArrayCInstanceStruct*/

@@ -127,7 +127,7 @@ unsigned int sf_UsingArrayC_autoinheritance_info( int nlhs, mxArray * plhs[],
     switch (chartFileNumber) {
      case 2:
       {
-        if (strcmp(aiChksum, "E3mJSEOW4rzlKqGIttouQG") == 0) {
+        if (strcmp(aiChksum, "soMEn0z0ViWYSpNT5PMMsF") == 0) {
           extern mxArray *sf_c2_UsingArrayC_get_autoinheritance_info(void);
           plhs[0] = sf_c2_UsingArrayC_get_autoinheritance_info();
           break;
@@ -220,7 +220,7 @@ unsigned int sf_UsingArrayC_third_party_uses_info( int nlhs, mxArray * plhs[],
     switch (chartFileNumber) {
      case 2:
       {
-        if (strcmp(tpChksum, "sMG4v9alDrbeF9rrsaCPVTD") == 0) {
+        if (strcmp(tpChksum, "s6pSEWKEMerUuJwV9AgoczD") == 0) {
           extern mxArray *sf_c2_UsingArrayC_third_party_uses_info(void);
           plhs[0] = sf_c2_UsingArrayC_third_party_uses_info();
           break;
@@ -257,7 +257,7 @@ unsigned int sf_UsingArrayC_jit_fallback_info( int nlhs, mxArray * plhs[], int
     switch (chartFileNumber) {
      case 2:
       {
-        if (strcmp(tpChksum, "sMG4v9alDrbeF9rrsaCPVTD") == 0) {
+        if (strcmp(tpChksum, "s6pSEWKEMerUuJwV9AgoczD") == 0) {
           extern mxArray *sf_c2_UsingArrayC_jit_fallback_info(void);
           plhs[0] = sf_c2_UsingArrayC_jit_fallback_info();
           break;
@@ -294,7 +294,7 @@ unsigned int sf_UsingArrayC_updateBuildInfo_args_info( int nlhs, mxArray * plhs[
     switch (chartFileNumber) {
      case 2:
       {
-        if (strcmp(tpChksum, "sMG4v9alDrbeF9rrsaCPVTD") == 0) {
+        if (strcmp(tpChksum, "s6pSEWKEMerUuJwV9AgoczD") == 0) {
           extern mxArray *sf_c2_UsingArrayC_updateBuildInfo_args_info(void);
           plhs[0] = sf_c2_UsingArrayC_updateBuildInfo_args_info();
           break;
